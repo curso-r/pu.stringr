@@ -1,0 +1,25 @@
+---
+title: "Untitled"
+author: "Julio Trecenti"
+date: "December 26, 2016"
+output: html_document
+---
+
+## Pacote `stringr` para trabalhar com textos
+
+O R básico não tem uma sintaxe consistente para trabalhar com textos. O pacote `stringr` ajuda a realizar todas as tarefas básicas de manipulação de texto, exigindo que o usuário estude apenas uma sintaxe.
+
+### Vantagens em relação ao base
+
+- Sintaxe unificada, o que auxilia na memorização e leitura do código.
+- Todas as funções são vetorizadas.
+- Construído sobre a [biblioteca ICU](http://site.icu-project.org/), implementada em `C` e `C++`, apresentando resultados rápidos e confiáveis.
+
+### Regras básicas do pacote
+
+- As funções de manipulação de texto começam com `str_`. Caso esqueça o nome de uma função, basta digitar `stringr::str_` e apertar `TAB` para ver quais são as opções.
+- O primeiro argumento da função é sempre uma `string` ou um vetor de `strings`.
+
+### Curiosidade
+
+Inicialmente, o `stringr` era um *wrapper* de funções do `base`. Depois disso, surgiu um novo pacote `stringi`, com sintaxe similar ao `stringr`, mas funcionando como *wrapper* da biblioteca ICU. No entanto, Wickham gostou tanto do pacote `stringi` que decidiu reescrever o `stringr` como um *wrapper* do `stringi`. Veja [essa página](https://github.com/tidyverse/stringr/blob/master/NEWS.md) para detalhes.
