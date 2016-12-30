@@ -1,25 +1,38 @@
 ---
-title: "Untitled"
-author: "Julio Trecenti"
+title: "Introdução: Stringr"
+author: "Julio Trecenti, Daniel Falbel"
 date: "December 26, 2016"
 output: html_document
 ---
 
-## Pacote `stringr` para trabalhar com textos
+Variáveis do tipo texto são muito comuns nos bancos de dados e geralmente são
+colunas que dão bastante trabalho para serem manipuladas. É muito comun encontrar
+bancos de dados em que os textos de uma coluna não estão padronizados, por exemplo
+uma coluna `Estado` em que são encontrados "SP", "sp", "Sao Paulo", "São Paulo", etc
+todas as variações indicando o mesmo estado.
 
-O R básico não tem uma sintaxe consistente para trabalhar com textos. O pacote `stringr` ajuda a realizar todas as tarefas básicas de manipulação de texto, exigindo que o usuário estude apenas uma sintaxe.
+Para manipular esses textos o R possui diversas funções para manipular textos, no entanto,
+as funções do `base` não possuem um interface consistente e parece que cada uma 
+tem a sua forma de passar os parâmetros, dificultando o processo durante a análise.
 
-### Vantagens em relação ao base
+Por isso, é recomendado usar o pacote `stringr` que possui a sintaxe consistente 
+permitindo que o usuário realize qualquer manipulação com textos com maior facilidade.
+
+## Vantagens do stringr em relação ao base
 
 - Sintaxe unificada, o que auxilia na memorização e leitura do código.
 - Todas as funções são vetorizadas.
 - Construído sobre a [biblioteca ICU](http://site.icu-project.org/), implementada em `C` e `C++`, apresentando resultados rápidos e confiáveis.
 
-### Regras básicas do pacote
+## Regras básicas do pacote
 
 - As funções de manipulação de texto começam com `str_`. Caso esqueça o nome de uma função, basta digitar `stringr::str_` e apertar `TAB` para ver quais são as opções.
 - O primeiro argumento da função é sempre uma `string` ou um vetor de `strings`.
 
-### Curiosidade
+## Curiosidade
 
-Inicialmente, o `stringr` era um *wrapper* de funções do `base`. Depois disso, surgiu um novo pacote `stringi`, com sintaxe similar ao `stringr`, mas funcionando como *wrapper* da biblioteca ICU. No entanto, Wickham gostou tanto do pacote `stringi` que decidiu reescrever o `stringr` como um *wrapper* do `stringi`. Veja [essa página](https://github.com/tidyverse/stringr/blob/master/NEWS.md) para detalhes.
+Inicialmente, o `stringr` era um *wrapper* de funções do `base`. Depois disso, 
+surgiu um novo pacote `stringi`, com sintaxe similar ao `stringr`, mas funcionando como 
+*wrapper* da biblioteca ICU. No entanto, Wickham gostou tanto do pacote `stringi` 
+que decidiu reescrever o `stringr` como um *wrapper* do `stringi`. 
+Veja [essa página](https://github.com/tidyverse/stringr/blob/master/NEWS.md) para detalhes.
