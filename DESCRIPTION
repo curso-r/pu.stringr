@@ -1,6 +1,6 @@
 Package: pu.stringr
 Title: placeholder
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: c(
     person("Julio", "Trecenti", , "j@jtrecenti.com", "cre"),
     person("Daniel", "Falbel", , "dfalbel@gmail.com", "aut"),
@@ -11,3 +11,5 @@ Depends: R (>= 3.3.1)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Imports:
+  stringr

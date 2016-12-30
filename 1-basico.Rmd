@@ -1,0 +1,109 @@
+---
+title: "stringr: Básico"
+author: "Julio Trecenti, Daniel Falbel"
+date: "December 31, 2016"
+output: html_document
+---
+
+Todas as funções do `stringr` começam com o prefixo `str`, isso ajuda na hora de 
+encontrar a função que você está procurando. No Rstudio, basta digitar `str_` e
+apertar tab que você verá algo parecido com a imagem a baixo. Você pode ir descendo
+com as setas do teclado e ver o que cada função faz até encontrar a função que estava
+procurando.
+
+![str_tab](figure/str_tab.png)
+
+Nesta sessão vamos utilizar as funções mais simples do `stringr`, depois vamos
+ensinar um pouco de Regex e em seguida veremos as funções mais avançadas do 
+pacote.
+
+## Funções básicas
+
+### str_length
+
+A função mais simples do `stringr` é a função `str_length`. Esta função recebe 
+apenas uma string como argumento e retorna o número de caracteres. Por exemplo:
+
+```{r}
+library(stringr)
+str_length("olá")
+length("olá")
+```
+
+Veja `str_length` é diferente de `length`. O primeiro retorna o número de caracteres
+e o segundo retorna o comprimento do objeto. Isso fica mais claro no seguinte exemplo:
+
+```{r}
+s <- c("olá mundo", "olá universo")
+str_length(s)
+length(s)
+```
+
+Agora o `str_length` retornou um vetor com o número de caracteres de cada elemento do vetor `s`, 
+e o `length` retornou o comprimento do vetor `s`. Note que espaço é considerado como um caractere. 
+
+### str_trim
+
+É muito comum encontrar textos que vêm com espaços a mais, principalmente de dados
+provenientes de formulários em que cada usuário escreve da forma que prefere. 
+
+```{r}
+string <- '\nessa      string é muito suja       \n'
+str_trim(string)
+```
+
+A função `str_trim` ajuda removendo os espaços excedetes antes e depois da string.
+
+### str_sub
+
+As vezes você precisa obter alguma parte fixa de uma string. Por exemplo, as vezes você 
+encontra variáveis com valores da forma:
+
+```{r}
+s <- c("01-Feminino", "02-Masculino", "03-Indefinido")
+```
+
+Você pode querer manipular essa string para retirar obter apenas a parte final da string.
+Neste caso pode usar a função `str_sub`
+
+```{r}
+str_sub(s, start = 4) # pegar do quarto até o último caractere
+```
+
+É possível obter também apenas os números
+
+```{r}
+str_sub(s, end = 2) # pegar apenas os dois primeiros caracteres
+```
+
+Em outros casos você precisa obter os últimos 2 caracteres.
+
+```{r}
+s <- c("Feminino-01", "Masculino-02", "Indefinido-03")
+str_sub(s, end = -4)
+str_sub(s, start = -2)
+```
+
+É possível também usar os argumentos `start` e `end` conjuntamente.
+
+```{r}
+s <- c("__SP__", "__MG__", "__RJ__")
+str_sub(s, 3, 4)
+```
+
+### str_to_upper, str_to_lower, str_to_title
+
+Essas funções servem para modificar a caixa das letras. Por exemplo:
+
+```{r}
+s <- "Olá, tudo bem?"
+str_to_lower(s)
+str_to_upper(s)
+str_to_title(s)
+```
+
+Essas são as funções mais simples do pacote `stringr` e mão exigem nenhum conhecimento
+de regex. Note que nenhuma delas possui o parâmetro `pattern`, você verá como especificar
+esse parâmetros nas próximas sessões.
+
+
