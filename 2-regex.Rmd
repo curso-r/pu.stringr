@@ -16,16 +16,32 @@ regex do R é um ótimo manual.
 
 ## Expressões regulares
 
-Expressão regular ou *regex* é uma sequência concisa de caracteres que representa várias strings. Entender o básico de expressões regulares é indispensável para trabalhar com textos.
+Expressão regular ou *regex* é uma sequência concisa de caracteres que representa 
+várias strings. Entender o básico de expressões regulares é indispensável para 
+trabalhar com textos.
 
-Vamos estudar expressões regulares através de exemplos e com a função `str_detect()`. Essa função retorna `TRUE` se uma string atende à uma expressão regular e `FALSE` em caso contrário.
+Vamos estudar expressões regulares através de exemplos e com a função `str_detect()`. 
+Essa função retorna `TRUE` se uma string atende à uma expressão regular e `FALSE` 
+em caso contrário.
+
+Por exemplo:
+
+```{r}
+library(stringr)
+str_detect("sao paulo", pattern = "paulo$")
+str_detect("sao paulo sp", pattern = "paulo$")
+```
+
+A regex/pattern "paulo$" indica que o texto deve ser terminado em "paulo". Existem 
+diversos de caracteres auxiliares que vão auxiliar na manipulação dos textos, assim como
+o "$" neste caso. É importante notar que sempre que você estiver passando algum
+valor para o argumento `pattern` de qualquer função do `stringr` ele o entenderá
+como uma regex. 
 
 A tabela abaixo mostra a aplicação de seis `regex` a seis strings distintas.
 
 ```{r}
-library(stringr)
-testes <- c('ban', 'banana', 'abandonado', 
-            'pranab anderson', 'BANANA', 
+testes <- c('ban', 'banana', 'abandonado', 'pranab anderson', 'BANANA', 
             'ele levou ban')
 
 expressoes <- list(
@@ -38,17 +54,19 @@ expressoes <- list(
 )
 ```
 
-```{r echo=FALSE}
-purrr::map(expressoes, ~str_detect(testes, .x)) %>% 
-  {do.call(rbind, .)} %>% 
-  as.data.frame() %>% 
-  setNames(testes) %>% 
-  dplyr::mutate(regex = expressoes) %>% 
-  dplyr::select(regex, dplyr::everything()) %>% 
+```{r echo=FALSE, include=FALSE, r echo=FALSE}
+library(purrr)
+library(dplyr)
+library(tidyr)
+list(testes = testes, expressoes = expressoes) %>%
+  cross_d() %>%
+  distinct() %>%
+  mutate(detect = str_detect(testes, expressoes)) %>%
+  spread(expressoes, detect) %>%
   DT::datatable()
 ```
 
-### Quantificadores
+## Quantificadores
 
 Os caracteres `+`, `*` e `{x,y}` indicam quantas vezes um padrão se repete:
 
@@ -59,7 +77,7 @@ Os caracteres `+`, `*` e `{x,y}` indicam quantas vezes um padrão se repete:
 
 Para aplicar um quantificador a um conjunto de caracteres, use parênteses. Por exemplo, `(ey )+` reconhece `ey ey `.
 
-### Conjuntos
+## Conjuntos
 
 Colocando caracteres dentro de `[]`, reconhecemos quaisquer caracteres desse conjunto. Alguns exemplos práticos:
 
@@ -69,7 +87,7 @@ Colocando caracteres dentro de `[]`, reconhecemos quaisquer caracteres desse con
 - O símbolo `.` fora do colchete indica "qualquer caractere", mas dentro do colchete é apenas ponto.
 - Use `[[:space:]]+` para reconhecer espaços e `[[:punct:]]+` para reconhecer pontuações.
 
-### Miscelânea
+## Miscelânea
 
 - Use `abjutils::rm_accent()` para retirar os acentos de um texto.
 - Use `|` para opções, por exemplo `desfavor|desprov` reconhece tanto "desfavorável" quanto "desprovido"

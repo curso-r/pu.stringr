@@ -24,3 +24,4 @@ Dependências
 TODO
 ----
 
+- Adicionar exemplos de cada grupo no 02-regex
