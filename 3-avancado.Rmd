@@ -5,33 +5,67 @@ date: "December 31, 2016"
 output: html_document
 ---
 
+Agora que já vimos as funções básicas do `stringr`, e aprendemos um pouco de regex,
+vamos às funções mais avançadas. Basicmante, essas funções buscarão `patterns` em
+um vetor de strings e farão alguma coisa quando encontrá-lo.
 
-- `str_detect()` retorna `TRUE` se a regex é compatível com a string e `FALSE` caso contrário
+Como já vimos na sessão sobre regex, a função mais simples que possui o argumento
+`pattern` é a `str_detect`.
 
-- `str_lengh()` retorna o comprimento de uma string.
+### str_detect()` 
+
+Retorna `TRUE` se a regex é compatível com a string e `FALSE` caso contrário.
 
 ```{r}
-str_length('hye')
+library(stringr)
+str_detect("sao paulo", pattern = "paulo$")
+str_detect("sao paulo sp", pattern = "paulo$")
 ```
 
-- `str_trim()` retira espaços e quebras de linha/tabs no início ou final de string.
+### str_replace() e str_replace_all() 
+
+Substituem um padrão (ou todos) encontrado para um outro padrão
 
 ```{r}
-string <- '\nessa      string é muito suja       \n'
-str_trim(string)
-```
+frutas <- c("uma maçã", "duas pêras", "três bananas")
+str_replace(frutas, "[aeiou]", "-") # substitui a primeira vogal de cada string por "-"
+str_replace_all(frutas, "[aeiou]", "-") # substitui todas as vogais por "-"
 
-- `str_replace()` e `str_replace_all()` substituem um padrão (ou todos) encontrado para um outro padrão
+yyyy <- "yyyyy yyyyy ll zz"
+str_replace(yyyy, 'y+', 'x') # substitui o primeiro 1 ou mais y's por x
+str_replace_all(yyyy, 'y+', 'x') # substitui todos os 1 ou mais y por somente 1 x
+str_replace_all(yyyy, 'y', 'x') # substitui y por x
 
-```{r}
-string <- 'heyyy ui yy'
-str_replace(string, 'y', 'x')
-str_replace(string, 'y+', 'x')
-str_replace_all(string, 'y', 'x')
 str_replace_all('string     com    muitos espaços', ' +', ' ') # tirar espaços extras
 ```
 
-- `str_match()` e `str_match_all()` extrai pedaços da string identificados pela regex. Caso queira extrair somente a parte identificada, use parênteses.
+Muitas vezes queremos remover alguns caracteres especiais de um texto, mas esses 
+caracteres fazem parte de comandos de regex, por exemplo:
+
+```{r}
+string <- "1 + 2 + 5"
+str_replace_all(string, "+", "-")
+```
+
+Essa forma retorna um erro, pois a função tenta montar uma regex. Você poderia 
+tentar de outras formas, que não retornariam erro, mas também não retornariam o 
+resultado esperado.
+
+```{r}
+str_replace_all(string, " + ", " - ")
+```
+
+Nesse caso, use a função `fixed` para indicar para o `stringr` que você não deseja
+que o parâmetro seja reconhecido como uma regex.
+
+```{r}
+str_replace_all(string, fixed("+"), "-")
+```
+
+### str_match() e str_match_all() 
+
+Extrai pedaços da string identificados pela regex. Caso queira extrair somente a 
+parte identificada, use parênteses.
 
 ```{r}
 frases <- c('a roupa do rei', 'de roma', 'o rato roeu')
@@ -40,7 +74,9 @@ str_match_all(frases, 'ro')
 str_match(frases, 'o (ro)')
 ```
 
-- `str_split()` separa uma string em várias de acordo com um separador.
+### str_split() e str_split_fixed()
+
+Separa uma string em várias de acordo com um separador.
 
 ```{r}
 string <- 'eu sei, usar virgulas, de forma, perfeita'
@@ -49,29 +85,25 @@ str_split(string, ', ')
 str_split(string, ', ', simplify = TRUE)
 ```
 
-- `str_split_fixed()` faz o mesmo que `str_split()`, mas separa apenas `n` vezes
+Faz o mesmo que `str_split()`, mas separa apenas `n` vezes
 
 ```{r}
 str_split_fixed(string, ', ', 3)
 str_split_fixed(string, ', ', 4) # igual a str_split(string, simplify = TRUE)
 ```
 
-- `str_sub()` extrai uma parte da string de acordo com os índices.
+### str_subset() 
 
-```{r}
-string <- 'quero pegar só uma parte disso'
-str_sub(string, 13, 14)
-str_sub(string, -5, -1) # usar números negativos para voltar do final da string
-
-indices <- str_locate(string, 'parte')
-indices
-str_sub(string, indices) # pode ser útil usar com str_locate.
-```
-
-- `str_subset()` retorna somente as strings compatíveis com a regex.
+Retorna somente as strings compatíveis com a regex.
 
 ```{r}
 frases <- c('a roupa do rei', 'de roma', 'o rato roeu')
 str_subset(frases, 'd[eo]')
+```
+
+É o mesmo que fazer o subset do R e a função `str_detect`.
+
+```{r}
+frases[str_detect(frases, "d[eo]")]
 ```
 
