@@ -42,7 +42,7 @@ str_replace_all('string     com    muitos espaços', ' +', ' ') # tirar espaços
 Muitas vezes queremos remover alguns caracteres especiais de um texto, mas esses 
 caracteres fazem parte de comandos de regex, por exemplo:
 
-```{r}
+```{r, error=TRUE}
 string <- "1 + 2 + 5"
 str_replace_all(string, "+", "-")
 ```
