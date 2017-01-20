@@ -20,18 +20,18 @@ tem a sua forma de passar os parâmetros, dificultando o processo durante a aná
 Por isso, é recomendado usar o pacote `stringr` que possui a sintaxe consistente 
 permitindo que o usuário realize qualquer manipulação com textos com maior facilidade.
 
-## Vantagens do stringr em relação ao base
+### Vantagens do stringr em relação ao base
 
 - Sintaxe unificada, o que auxilia na memorização e leitura do código.
 - Todas as funções são vetorizadas.
 - Construído sobre a [biblioteca ICU](http://site.icu-project.org/), implementada em `C` e `C++`, apresentando resultados rápidos e confiáveis.
 
-## Regras básicas do pacote
+### Regras básicas do pacote
 
 - As funções de manipulação de texto começam com `str_`. Caso esqueça o nome de uma função, basta digitar `stringr::str_` e apertar `TAB` para ver quais são as opções.
 - O primeiro argumento da função é sempre uma `string` ou um vetor de `strings`.
 
-## Curiosidade
+### Curiosidade
 
 Inicialmente, o `stringr` era um *wrapper* de funções do `base`. Depois disso, 
 surgiu um novo pacote `stringi`, com sintaxe similar ao `stringr`, mas funcionando como 
@@ -40,6 +40,8 @@ que decidiu reescrever o `stringr` como um *wrapper* do `stringi`.
 Veja [essa página](https://github.com/tidyverse/stringr/blob/master/NEWS.md) para detalhes.
 
 
+
+## Conceitos básicos
 
 
 
@@ -54,8 +56,6 @@ procurando.
 Nesta sessão vamos utilizar as funções mais simples do `stringr`, depois vamos
 ensinar um pouco de Regex e em seguida veremos as funções mais avançadas do 
 pacote.
-
-## Funções básicas
 
 ### str_length
 
@@ -168,6 +168,8 @@ esse parâmetros nas próximas sessões.
 
 
 
+## Expressões Regulares
+
 Trabalhar com textos exige um certo conhecimento de expressões regulares (*regex*).
 [Expressões regulares](https://pt.wikipedia.org/wiki/Express%C3%A3o_regular) permitem
 identificar conjuntos de caracters, palavras, e outros padrões por meio de uma sintaxe
@@ -176,12 +178,6 @@ concisa.
 O `stringr` utiliza regex da forma descrita [neste documento](http://www.gagolewski.com/software/stringi/manual/?manpage=stringi-search-regex). 
 A própria [definição](https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html) de 
 regex do R é um ótimo manual.
-
-## Expressões regulares
-
-Expressão regular ou *regex* é uma sequência concisa de caracteres que representa 
-várias strings. Entender o básico de expressões regulares é indispensável para 
-trabalhar com textos.
 
 Vamos estudar expressões regulares através de exemplos e com a função `str_detect()`. 
 Essa função retorna `TRUE` se uma string atende à uma expressão regular e `FALSE` 
@@ -234,8 +230,9 @@ expressoes <- list(
 ## The following objects are masked from 'package:base':
 ## 
 ##     intersect, setdiff, setequal, union
-## Error in loadNamespace(name): there is no package called 'webshot'
 ```
+
+<img src="figures//unnamed-chunk-19-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" width="60%" height="60%" />
 
 ## Quantificadores
 
@@ -270,6 +267,8 @@ Um bom lugar para testar o funcionamento de expressões regulares é o [regex101
 
 
 
+
+## Funções avançadas
 
 Agora que já vimos as funções básicas do `stringr`, e aprendemos um pouco de regex,
 vamos às funções mais avançadas. Basicmante, essas funções buscarão `patterns` em
@@ -437,6 +436,8 @@ frases[str_detect(frases, "d[eo]")]
 
 
 
+
+## Exercícios
 
 1. Considere o seguinte texto
 
