@@ -16,4 +16,6 @@ Imports:
   purrr,
   dplyr,
   DT,
-  tidyr
+  tidyr,
+  puBuild
+Remotes: curso-r/puBuild
