@@ -8,7 +8,7 @@ title: "Exercícios"
 txt <- "A função mais importante para leitura de dados no `lubridate` é a `ymd`. Essa função serve para ler qualquer data de uma `string` no formato `YYYY-MM-DD`. Essa função é útil pois funciona com qualquer separador entre os elementos da data e também porque temos uma função para cada formato (`mdy`, `dmy`, `dym`, `myd`, `ydm`)."
 ```
 
-Extraia todas as combinações da função `ymd`, sem repetições.
+Extraia todas as combinações da função `ymd`, sem repetições. 
 
 2. Considere os textos abaixo
 
