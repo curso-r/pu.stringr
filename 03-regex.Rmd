@@ -56,7 +56,7 @@ list(testes = testes, expressoes = expressoes) %>%
   distinct() %>%
   mutate(detect = str_detect(testes, expressoes)) %>%
   spread(expressoes, detect) %>%
-  DT::datatable()
+  knitr::kable()
 ```
 
 ### Quantificadores
