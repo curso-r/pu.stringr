@@ -62,16 +62,34 @@ que o parâmetro seja reconhecido como uma regex.
 str_replace_all(string, fixed("+"), "-")
 ```
 
-### str_match() e str_match_all() 
+### str_extract() e str_extract_all()
 
-Extrai pedaços da string identificados pela regex. Caso queira extrair somente a 
-parte identificada, use parênteses.
+Extraem padrões de uma string. Por exemplo:
 
 ```{r}
-frases <- c('a roupa do rei', 'de roma', 'o rato roeu')
-str_match(frases, 'roe')
-str_match_all(frases, 'ro')
-str_match(frases, 'o (ro)')
+r_core_group <- c(
+  'Douglas Bates', 'John Chambers', 'Peter Dalgaard',
+  'Robert Gentleman', 'Kurt Hornik', 'Ross Ihaka', 'Tomas Kalibera',
+  'Michael Lawrence', 'Friedrich Leisch', 'Uwe Ligges', '...'
+)
+sobrenomes <- str_extract(r_core_group, '[:alpha:]+$')
+sobrenomes
+```
+
+### str_match() e str_match_all() 
+
+Extrai pedaços da string identificados pela regex. Caso queira extrair 
+somente a parte identificada, use parênteses. Isso é útil quando você 
+está interessado em uma parte do padrão, mas para identificá-lo precisa
+
+```{r}
+# Exemplo de pergunta SOPt: http://pt.stackoverflow.com/q/150024/6036
+presidentes <- c("da Fonseca, DeodoroDeodoro da Fonseca", 
+"Peixoto, FlorianoFloriano Peixoto", "de Morais, PrudentePrudente de Morais", 
+"Sales, CamposCampos Sales")
+nomes_presidentes <- str_match(presidentes, '(.*), ([a-zA-Z]{1,})[A-Z]{1}')
+nomes_presidentes
+str_c(nomes_presidentes[,3], nomes_presidentes[,2], sep = ' ')
 ```
 
 ### str_split() e str_split_fixed()
@@ -79,17 +97,14 @@ str_match(frases, 'o (ro)')
 Separa uma string em várias de acordo com um separador.
 
 ```{r}
-string <- 'eu sei, usar virgulas, de forma, perfeita'
-
-str_split(string, ', ')
-str_split(string, ', ', simplify = TRUE)
+string <- 'Durante um longo período de tempo o "R" foi escrito "P" como no alfabeto cirílico. O seu nome no alfabeto fenício era "rech". Seu significado era o de uma cabeça, representada pela adaptação do hieróglifo egípcio de uma cabeça. Transformou-se no "rô" dos gregos. Os romanos modificaram o rô acrescentando um pequeno traço para diferenciá-lo do no nosso P.'
+str_split(string, fixed('.'))
 ```
 
-Faz o mesmo que `str_split()`, mas separa apenas `n` vezes
+O `str_split_fixed` faz o mesmo que `str_split()`, mas separa apenas `n` vezes.
 
 ```{r}
-str_split_fixed(string, ', ', 3)
-str_split_fixed(string, ', ', 4) # igual a str_split(string, simplify = TRUE)
+str_split_fixed(string, fixed('.'), 3)
 ```
 
 ### str_subset() 
