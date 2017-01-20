@@ -168,7 +168,298 @@ esse parâmetros nas próximas sessões.
 
 
 
+Trabalhar com textos exige um certo conhecimento de expressões regulares (*regex*).
+[Expressões regulares](https://pt.wikipedia.org/wiki/Express%C3%A3o_regular) permitem
+identificar conjuntos de caracters, palavras, e outros padrões por meio de uma sintaxe
+concisa. 
+
+O `stringr` utiliza regex da forma descrita [neste documento](http://www.gagolewski.com/software/stringi/manual/?manpage=stringi-search-regex). 
+A própria [definição](https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html) de 
+regex do R é um ótimo manual.
+
+## Expressões regulares
+
+Expressão regular ou *regex* é uma sequência concisa de caracteres que representa 
+várias strings. Entender o básico de expressões regulares é indispensável para 
+trabalhar com textos.
+
+Vamos estudar expressões regulares através de exemplos e com a função `str_detect()`. 
+Essa função retorna `TRUE` se uma string atende à uma expressão regular e `FALSE` 
+em caso contrário.
+
+Por exemplo:
 
 
+```r
+library(stringr)
+str_detect("sao paulo", pattern = "paulo$")
+## [1] TRUE
+str_detect("sao paulo sp", pattern = "paulo$")
+## [1] FALSE
+```
+
+A regex/pattern "paulo$" indica que o texto deve ser terminado em "paulo". Existem 
+diversos de caracteres auxiliares que vão auxiliar na manipulação dos textos, assim como
+o "$" neste caso. É importante notar que sempre que você estiver passando algum
+valor para o argumento `pattern` de qualquer função do `stringr` ele o entenderá
+como uma regex. 
+
+A tabela abaixo mostra a aplicação de seis `regex` a seis strings distintas.
+
+
+```r
+testes <- c('ban', 'banana', 'abandonado', 'pranab anderson', 'BANANA', 
+            'ele levou ban')
+
+expressoes <- list(
+  'ban', # reconhece tudo que tenha "ban", mas não ignora case
+  'BAN', # reconhece tudo que tenha "BAN", mas não ignora case
+  regex('ban', ignore_case = TRUE), # reconhece tudo que tenha "ban", ignorando case
+  'ban$', # reconhece apenas o que termina exatamente em "ban"
+  '^ban', # reconhece apenas o que começa exatamente com "ban"
+  'b ?an' # reconhece tudo que tenha "ban", com ou sem espaço entre o "b" e o "a"
+)
+```
+
+
+```
+## 
+## Attaching package: 'dplyr'
+## The following objects are masked from 'package:purrr':
+## 
+##     contains, order_by
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+## Error in loadNamespace(name): there is no package called 'webshot'
+```
+
+## Quantificadores
+
+Os caracteres `+`, `*` e `{x,y}` indicam quantas vezes um padrão se repete:
+
+- `ey+` significa `e` e depois `y` "**uma vez** ou mais". Por exemplo, reconhece `hey`, `heyy`, `a eyyy`, mas não reconhece `e`, `y` nem `yy`.
+- `ey*` significa "**zero vezes** ou mais". Por exemplo, reconhece `hey`, `heyy`, `a eyyy` e `e`, mas não reconhece `y` nem `yy`.
+- `ey{3}` significa "exatamente três vezes". Por exemplo, reconhece `eyyy` e `eyyyy`, mas não reconhece `eyy`.
+- `ey{1,3}` significa "entre uma e três vezes".
+
+Para aplicar um quantificador a um conjunto de caracteres, use parênteses. Por exemplo, `(ey )+` reconhece `ey ey `.
+
+## Conjuntos
+
+Colocando caracteres dentro de `[]`, reconhecemos quaisquer caracteres desse conjunto. Alguns exemplos práticos:
+
+- `[Cc]asa` para reconhecer "casa" em maiúsculo ou minúsculo.
+- `[0-9]` para reconhecer somente números. O mesmo vale para letras `[a-z]`, `[A-Z]`, `[a-zA-Z]` etc.
+- O símbolo `^` dentro do colchete significa negação. Por exemplo, `[^0-9]` significa pegar tudo o que não é número.
+- O símbolo `.` fora do colchete indica "qualquer caractere", mas dentro do colchete é apenas ponto.
+- Use `[[:space:]]+` para reconhecer espaços e `[[:punct:]]+` para reconhecer pontuações.
+
+## Miscelânea
+
+- Use `abjutils::rm_accent()` para retirar os acentos de um texto.
+- Use `|` para opções, por exemplo `desfavor|desprov` reconhece tanto "desfavorável" quanto "desprovido"
+- `\n` pula linha, `\f` é final da página, `\t` é tab. Use `\` para transformar caracteres especiais em literais.
+- `tolower()` e `toupper()` para mudar o case de uma string. 
+
+A lista de possibilidades com expressões regulares é extensa. 
+Um bom lugar para testar o funcionamento de expressões regulares é o [regex101](https://regex101.com/).
+
+
+
+
+Agora que já vimos as funções básicas do `stringr`, e aprendemos um pouco de regex,
+vamos às funções mais avançadas. Basicmante, essas funções buscarão `patterns` em
+um vetor de strings e farão alguma coisa quando encontrá-lo.
+
+Como já vimos na sessão sobre regex, a função mais simples que possui o argumento
+`pattern` é a `str_detect`.
+
+### str_detect()` 
+
+Retorna `TRUE` se a regex é compatível com a string e `FALSE` caso contrário.
+
+
+```r
+library(stringr)
+str_detect("sao paulo", pattern = "paulo$")
+## [1] TRUE
+str_detect("sao paulo sp", pattern = "paulo$")
+## [1] FALSE
+```
+
+### str_replace() e str_replace_all() 
+
+Substituem um padrão (ou todos) encontrado para um outro padrão
+
+
+```r
+frutas <- c("uma maçã", "duas pêras", "três bananas")
+str_replace(frutas, "[aeiou]", "-") # substitui a primeira vogal de cada string por "-"
+## [1] "-ma maçã"     "d-as pêras"   "três b-nanas"
+str_replace_all(frutas, "[aeiou]", "-") # substitui todas as vogais por "-"
+## [1] "-m- m-çã"     "d--s pêr-s"   "três b-n-n-s"
+
+yyyy <- "yyyyy yyyyy ll zz"
+str_replace(yyyy, 'y+', 'x') # substitui o primeiro 1 ou mais y's por x
+## [1] "x yyyyy ll zz"
+str_replace_all(yyyy, 'y+', 'x') # substitui todos os 1 ou mais y por somente 1 x
+## [1] "x x ll zz"
+str_replace_all(yyyy, 'y', 'x') # substitui y por x
+## [1] "xxxxx xxxxx ll zz"
+
+str_replace_all('string     com    muitos espaços', ' +', ' ') # tirar espaços extras
+## [1] "string com muitos espaços"
+```
+
+Muitas vezes queremos remover alguns caracteres especiais de um texto, mas esses 
+caracteres fazem parte de comandos de regex, por exemplo:
+
+
+```r
+string <- "1 + 2 + 5"
+str_replace_all(string, "+", "-")
+## Error in stri_replace_all_regex(string, pattern, fix_replacement(replacement), : Syntax error in regexp pattern. (U_REGEX_RULE_SYNTAX)
+```
+
+Essa forma retorna um erro, pois a função tenta montar uma regex. Você poderia 
+tentar de outras formas, que não retornariam erro, mas também não retornariam o 
+resultado esperado.
+
+
+```r
+str_replace_all(string, " + ", " - ")
+## [1] "1 + 2 + 5"
+```
+
+Nesse caso, use a função `fixed` para indicar para o `stringr` que você não deseja
+que o parâmetro seja reconhecido como uma regex.
+
+
+```r
+str_replace_all(string, fixed("+"), "-")
+## [1] "1 - 2 - 5"
+```
+
+### str_extract() e str_extract_all()
+
+Extraem padrões de uma string. Por exemplo:
+
+
+```r
+r_core_group <- c(
+  'Douglas Bates', 'John Chambers', 'Peter Dalgaard',
+  'Robert Gentleman', 'Kurt Hornik', 'Ross Ihaka', 'Tomas Kalibera',
+  'Michael Lawrence', 'Friedrich Leisch', 'Uwe Ligges', '...'
+)
+sobrenomes <- str_extract(r_core_group, '[:alpha:]+$')
+sobrenomes
+##  [1] "Bates"     "Chambers"  "Dalgaard"  "Gentleman" "Hornik"   
+##  [6] "Ihaka"     "Kalibera"  "Lawrence"  "Leisch"    "Ligges"   
+## [11] NA
+```
+
+### str_match() e str_match_all() 
+
+Extrai pedaços da string identificados pela regex. Caso queira extrair 
+somente a parte identificada, use parênteses. Isso é útil quando você 
+está interessado em uma parte do padrão, mas para identificá-lo precisa
+
+
+```r
+# Exemplo de pergunta SOPt: http://pt.stackoverflow.com/q/150024/6036
+presidentes <- c("da Fonseca, DeodoroDeodoro da Fonseca", 
+"Peixoto, FlorianoFloriano Peixoto", "de Morais, PrudentePrudente de Morais", 
+"Sales, CamposCampos Sales")
+nomes_presidentes <- str_match(presidentes, '(.*), ([a-zA-Z]{1,})[A-Z]{1}')
+nomes_presidentes
+##      [,1]                   [,2]         [,3]      
+## [1,] "da Fonseca, DeodoroD" "da Fonseca" "Deodoro" 
+## [2,] "Peixoto, FlorianoF"   "Peixoto"    "Floriano"
+## [3,] "de Morais, PrudenteP" "de Morais"  "Prudente"
+## [4,] "Sales, CamposC"       "Sales"      "Campos"
+str_c(nomes_presidentes[,3], nomes_presidentes[,2], sep = ' ')
+## [1] "Deodoro da Fonseca" "Floriano Peixoto"   "Prudente de Morais"
+## [4] "Campos Sales"
+```
+
+### str_split() e str_split_fixed()
+
+Separa uma string em várias de acordo com um separador.
+
+
+```r
+string <- 'Durante um longo período de tempo o "R" foi escrito "P" como no alfabeto cirílico. O seu nome no alfabeto fenício era "rech". Seu significado era o de uma cabeça, representada pela adaptação do hieróglifo egípcio de uma cabeça. Transformou-se no "rô" dos gregos. Os romanos modificaram o rô acrescentando um pequeno traço para diferenciá-lo do no nosso P.'
+str_split(string, fixed('.'))
+## [[1]]
+## [1] "Durante um longo período de tempo o \"R\" foi escrito \"P\" como no alfabeto cirílico"                
+## [2] " O seu nome no alfabeto fenício era \"rech\""                                                         
+## [3] " Seu significado era o de uma cabeça, representada pela adaptação do hieróglifo egípcio de uma cabeça"
+## [4] " Transformou-se no \"rô\" dos gregos"                                                                 
+## [5] " Os romanos modificaram o rô acrescentando um pequeno traço para diferenciá-lo do no nosso P"         
+## [6] ""
+```
+
+O `str_split_fixed` faz o mesmo que `str_split()`, mas separa apenas `n` vezes.
+
+
+```r
+str_split_fixed(string, fixed('.'), 3)
+##      [,1]                                                                                   
+## [1,] "Durante um longo período de tempo o \"R\" foi escrito \"P\" como no alfabeto cirílico"
+##      [,2]                                          
+## [1,] " O seu nome no alfabeto fenício era \"rech\""
+##      [,3]                                                                                                                                                                                                                                      
+## [1,] " Seu significado era o de uma cabeça, representada pela adaptação do hieróglifo egípcio de uma cabeça. Transformou-se no \"rô\" dos gregos. Os romanos modificaram o rô acrescentando um pequeno traço para diferenciá-lo do no nosso P."
+```
+
+### str_subset() 
+
+Retorna somente as strings compatíveis com a regex.
+
+
+```r
+frases <- c('a roupa do rei', 'de roma', 'o rato roeu')
+str_subset(frases, 'd[eo]')
+## [1] "a roupa do rei" "de roma"
+```
+
+É o mesmo que fazer o subset do R e a função `str_detect`.
+
+
+```r
+frases[str_detect(frases, "d[eo]")]
+## [1] "a roupa do rei" "de roma"
+```
+
+
+
+
+1. Considere o seguinte texto
+
+
+```r
+txt <- "A função mais importante para leitura de dados no `lubridate` é a `ymd`. Essa função serve para ler qualquer data de uma `string` no formato `YYYY-MM-DD`. Essa função é útil pois funciona com qualquer separador entre os elementos da data e também porque temos uma função para cada formato (`mdy`, `dmy`, `dym`, `myd`, `ydm`)."
+```
+
+Extraia todas as combinações da função `ymd`, sem repetições. 
+
+2. Considere os textos abaixo
+
+
+```r
+txts <- c(
+  'o produto é muito bom',
+  'o produto não é bom',
+  'o produto não é muito bom',
+  'o produto não é ruim',
+  'o produto não é não bom'
+)
+```
+
+Crie uma regra para identificar se o texto refere-se a um feedback positivo ou negativo sobre o produto (considera não bom = ruim e vice-versa). Retorne um vetor lógico que vale `TRUE` se o feedback é positivo e `FALSE` caso contrário.
 
 
