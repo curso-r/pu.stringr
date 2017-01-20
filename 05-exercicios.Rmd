@@ -2,27 +2,61 @@
 title: "Exercícios"
 ---
 
+<script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
+
+```{r, include=FALSE}
+library(stringr)
+library(testwhat)
+tutorial::go_interactive()
+```
+
 ## Exercícios
 
-1. Considere o seguinte texto
+1. Faça uma regex que capture múltiplas versões da palavra 'casa'. Ela deve funcionar
+com as palavras 'Casa', 'CASA', 'CaSa', 'CAsa'. Teste-a usando a função `str_detect`.
 
-```{r}
-txt <- "A função mais importante para leitura de dados no `lubridate` é a `ymd`. Essa função serve para ler qualquer data de uma `string` no formato `YYYY-MM-DD`. Essa função é útil pois funciona com qualquer separador entre os elementos da data e também porque temos uma função para cada formato (`mdy`, `dmy`, `dym`, `myd`, `ydm`)."
+```{r ex="exercicio_01", type="sample-code"}
+library(stringr)
+palavras <- c('Casa', 'CASA', 'CaSa', 'CAsa')
+str_detect(palavras, pattern = _sua_regex_)
 ```
 
-Extraia todas as combinações da função `ymd`, sem repetições. 
-
-2. Considere os textos abaixo
-
-```{r}
-txts <- c(
-  'o produto é muito bom',
-  'o produto não é bom',
-  'o produto não é muito bom',
-  'o produto não é ruim',
-  'o produto não é não bom'
-)
+```{r ex="exercicio_01", type="solution"}
+library(stringr)
+palavras <- c('Casa', 'CASA', 'CaSa', 'CAsa')
+str_detect(palavras, regex('casa', ignore_case = TRUE))
 ```
 
-Crie uma regra para identificar se o texto refere-se a um feedback positivo ou negativo sobre o produto (considera não bom = ruim e vice-versa). Retorne um vetor lógico que vale `TRUE` se o feedback é positivo e `FALSE` caso contrário.
+```{r ex="exercicio_01", type="sct"}
+test_student_typed("str_detect", not_typed_msg = 'Use str_detect!')
+test_expression_result(c(TRUE, TRUE, TRUE, TRUE), incorrect_msg = "Use a função str_detect")
+success_msg("Correto!")
+```
+
+2. Imagine que você possui a seguinte string que é a parte final de uma URL:
+
+`/ac/rio-branco/xpto-xyz-1-0-1fds2396-5`
+
+Você precisa transformá-la em 'AC - Rio Branco'.
+
+**Dica**: Use a função `str_split`.
+
+```{r ex="exercicio_02", type="sample-code"}
+library(stringr)
+url <- c('/ac/rio-branco/xpto-xyz-1-0-1fds2396-5')
+```
+
+```{r ex="exercicio_02", type="solution"}
+library(stringr)
+url <- c('/ac/rio-branco/xpto-xyz-1-0-1fds2396-5')
+aux <- str_split(url, '/', simplify = TRUE)
+aux[2] <- str_to_upper(aux[2])
+aux[3] <- str_replace_all(aux[3], '-', ' ') %>% str_to_title()
+localizacao <- str_c(aux[2], aux[3], sep = ' - ') 
+```
+
+```{r ex="exercicio_02", type="sct"}
+test_object('localizacao', undefined_msg = 'Defina o objeto localizacao', incorrect_msg = 'localizacao não está com o resultado esperado')
+success_msg("Correto!")
+```
 
