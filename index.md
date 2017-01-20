@@ -203,35 +203,6 @@ como uma regex.
 A tabela abaixo mostra a aplicação de seis `regex` a seis strings distintas.
 
 
-```r
-testes <- c('ban', 'banana', 'abandonado', 'pranab anderson', 'BANANA', 
-            'ele levou ban')
-
-expressoes <- list(
-  'ban', # reconhece tudo que tenha "ban", mas não ignora case
-  'BAN', # reconhece tudo que tenha "BAN", mas não ignora case
-  regex('ban', ignore_case = TRUE), # reconhece tudo que tenha "ban", ignorando case
-  'ban$', # reconhece apenas o que termina exatamente em "ban"
-  '^ban', # reconhece apenas o que começa exatamente com "ban"
-  'b ?an' # reconhece tudo que tenha "ban", com ou sem espaço entre o "b" e o "a"
-)
-```
-
-
-```
-## 
-## Attaching package: 'dplyr'
-## The following objects are masked from 'package:purrr':
-## 
-##     contains, order_by
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
 
 
 |testes          |^ban  |b ?an |ban   |BAN   |ban$  |
