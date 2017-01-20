@@ -234,7 +234,7 @@ expressoes <- list(
 
 <img src="figures//unnamed-chunk-19-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" width="60%" height="60%" />
 
-## Quantificadores
+### Quantificadores
 
 Os caracteres `+`, `*` e `{x,y}` indicam quantas vezes um padrão se repete:
 
@@ -245,7 +245,7 @@ Os caracteres `+`, `*` e `{x,y}` indicam quantas vezes um padrão se repete:
 
 Para aplicar um quantificador a um conjunto de caracteres, use parênteses. Por exemplo, `(ey )+` reconhece `ey ey `.
 
-## Conjuntos
+### Conjuntos
 
 Colocando caracteres dentro de `[]`, reconhecemos quaisquer caracteres desse conjunto. Alguns exemplos práticos:
 
@@ -255,7 +255,7 @@ Colocando caracteres dentro de `[]`, reconhecemos quaisquer caracteres desse con
 - O símbolo `.` fora do colchete indica "qualquer caractere", mas dentro do colchete é apenas ponto.
 - Use `[[:space:]]+` para reconhecer espaços e `[[:punct:]]+` para reconhecer pontuações.
 
-## Miscelânea
+### Miscelânea
 
 - Use `abjutils::rm_accent()` para retirar os acentos de um texto.
 - Use `|` para opções, por exemplo `desfavor|desprov` reconhece tanto "desfavorável" quanto "desprovido"
