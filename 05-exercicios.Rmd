@@ -6,7 +6,6 @@ title: "Exercícios"
 
 ```{r, include=FALSE}
 library(stringr)
-library(testwhat)
 tutorial::go_interactive()
 ```
 
