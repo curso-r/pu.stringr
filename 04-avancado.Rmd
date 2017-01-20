@@ -1,8 +1,5 @@
 ---
-title: "stringr: Avançado"
-author: "Julio Trecenti, Daniel Falbel"
-date: "December 31, 2016"
-output: html_document
+title: "Avançado"
 ---
 
 Agora que já vimos as funções básicas do `stringr`, e aprendemos um pouco de regex,

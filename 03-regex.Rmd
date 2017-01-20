@@ -1,8 +1,5 @@
 ---
 title: "Regex"
-author: "Julio Trecenti, Daniel Falbel"
-date: "December 31, 2016"
-output: html_document
 ---
 
 Trabalhar com textos exige um certo conhecimento de expressões regulares (*regex*).
@@ -96,3 +93,4 @@ Colocando caracteres dentro de `[]`, reconhecemos quaisquer caracteres desse con
 
 A lista de possibilidades com expressões regulares é extensa. 
 Um bom lugar para testar o funcionamento de expressões regulares é o [regex101](https://regex101.com/).
+

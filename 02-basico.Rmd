@@ -1,9 +1,14 @@
 ---
-title: "stringr: Básico"
-author: "Julio Trecenti, Daniel Falbel"
-date: "December 31, 2016"
-output: html_document
+title: "Conceitos básicos"
 ---
+
+```{r, message=FALSE, warning=FALSE, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE, 
+  out.width = "60%", out.height = "60%",
+  fig.retina = 2
+)
+```
 
 Todas as funções do `stringr` começam com o prefixo `str`, isso ajuda na hora de 
 encontrar a função que você está procurando. No Rstudio, basta digitar `str_` e
@@ -11,7 +16,7 @@ apertar tab que você verá algo parecido com a imagem a baixo. Você pode ir de
 com as setas do teclado e ver o que cada função faz até encontrar a função que estava
 procurando.
 
-![str_tab](figure/str_tab.png)
+![str_tab](figures/str_tab.png)
 
 Nesta sessão vamos utilizar as funções mais simples do `stringr`, depois vamos
 ensinar um pouco de Regex e em seguida veremos as funções mais avançadas do 
@@ -105,5 +110,3 @@ str_to_title(s)
 Essas são as funções mais simples do pacote `stringr` e mão exigem nenhum conhecimento
 de regex. Note que nenhuma delas possui o parâmetro `pattern`, você verá como especificar
 esse parâmetros nas próximas sessões.
-
-

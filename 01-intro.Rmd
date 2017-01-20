@@ -1,9 +1,14 @@
 ---
-title: "Introdução: Stringr"
-author: "Julio Trecenti, Daniel Falbel"
-date: "December 26, 2016"
-output: html_document
+title: "Introdução"
 ---
+
+```{r, message=FALSE, warning=FALSE, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE, 
+  out.width = "60%", out.height = "60%",
+  fig.retina = 2
+)
+```
 
 Variáveis do tipo texto são muito comuns nos bancos de dados e geralmente são
 colunas que dão bastante trabalho para serem manipuladas. É muito comun encontrar
