@@ -51,7 +51,7 @@ expressoes <- list(
 )
 ```
 
-```{r echo=FALSE, include=FALSE, r echo=FALSE}
+```{r echo=FALSE}
 library(purrr)
 library(dplyr)
 library(tidyr)
