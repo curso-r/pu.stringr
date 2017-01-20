@@ -1,5 +1,5 @@
 ---
-title: Introdução
+title: Stringr
 date: '2017-01-20'
 ---
 
