@@ -232,7 +232,16 @@ expressoes <- list(
 ##     intersect, setdiff, setequal, union
 ```
 
-<img src="figures//unnamed-chunk-19-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" width="60%" height="60%" />
+
+
+|testes          |^ban  |b ?an |ban   |BAN   |ban$  |
+|:---------------|:-----|:-----|:-----|:-----|:-----|
+|abandonado      |FALSE |TRUE  |TRUE  |FALSE |FALSE |
+|ban             |TRUE  |TRUE  |TRUE  |FALSE |TRUE  |
+|banana          |TRUE  |TRUE  |TRUE  |FALSE |FALSE |
+|BANANA          |FALSE |FALSE |FALSE |TRUE  |FALSE |
+|ele levou ban   |FALSE |TRUE  |TRUE  |FALSE |TRUE  |
+|pranab anderson |FALSE |TRUE  |FALSE |FALSE |FALSE |
 
 ### Quantificadores
 
