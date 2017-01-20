@@ -2,6 +2,8 @@
 title: "Regex"
 ---
 
+## Expressões Regulares
+
 Trabalhar com textos exige um certo conhecimento de expressões regulares (*regex*).
 [Expressões regulares](https://pt.wikipedia.org/wiki/Express%C3%A3o_regular) permitem
 identificar conjuntos de caracters, palavras, e outros padrões por meio de uma sintaxe
@@ -10,12 +12,6 @@ concisa.
 O `stringr` utiliza regex da forma descrita [neste documento](http://www.gagolewski.com/software/stringi/manual/?manpage=stringi-search-regex). 
 A própria [definição](https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html) de 
 regex do R é um ótimo manual.
-
-## Expressões regulares
-
-Expressão regular ou *regex* é uma sequência concisa de caracteres que representa 
-várias strings. Entender o básico de expressões regulares é indispensável para 
-trabalhar com textos.
 
 Vamos estudar expressões regulares através de exemplos e com a função `str_detect()`. 
 Essa função retorna `TRUE` se uma string atende à uma expressão regular e `FALSE` 

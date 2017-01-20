@@ -2,6 +2,8 @@
 title: "Avançado"
 ---
 
+## Funções avançadas
+
 Agora que já vimos as funções básicas do `stringr`, e aprendemos um pouco de regex,
 vamos às funções mais avançadas. Basicmante, essas funções buscarão `patterns` em
 um vetor de strings e farão alguma coisa quando encontrá-lo.

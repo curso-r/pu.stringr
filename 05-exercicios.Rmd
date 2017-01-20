@@ -2,6 +2,8 @@
 title: "Exercícios"
 ---
 
+## Exercícios
+
 1. Considere o seguinte texto
 
 ```{r}

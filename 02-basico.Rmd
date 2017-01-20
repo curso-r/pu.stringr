@@ -2,6 +2,8 @@
 title: "Conceitos básicos"
 ---
 
+## Conceitos básicos
+
 ```{r, message=FALSE, warning=FALSE, include=FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE, 
@@ -21,8 +23,6 @@ procurando.
 Nesta sessão vamos utilizar as funções mais simples do `stringr`, depois vamos
 ensinar um pouco de Regex e em seguida veremos as funções mais avançadas do 
 pacote.
-
-## Funções básicas
 
 ### str_length
 

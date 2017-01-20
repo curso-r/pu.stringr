@@ -17,5 +17,6 @@ Imports:
   dplyr,
   DT,
   tidyr,
-  puBuild
+  puBuild,
+  webshot
 Remotes: curso-r/puBuild
