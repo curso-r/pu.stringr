@@ -33,7 +33,7 @@ como uma regex.
 
 A tabela abaixo mostra a aplicação de seis `regex` a seis strings distintas.
 
-```{r}
+```{r, message=FALSE, warning=FALSE, include=FALSE}
 testes <- c('ban', 'banana', 'abandonado', 'pranab anderson', 'BANANA', 
             'ele levou ban')
 
@@ -47,7 +47,7 @@ expressoes <- list(
 )
 ```
 
-```{r echo=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(purrr)
 library(dplyr)
 library(tidyr)
