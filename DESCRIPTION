@@ -18,5 +18,6 @@ Imports:
   DT,
   tidyr,
   puBuild,
-  webshot
+  webshot,
+  tutorial
 Remotes: curso-r/puBuild
