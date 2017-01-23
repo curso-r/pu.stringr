@@ -1,6 +1,6 @@
 ---
 title: Stringr
-date: '2017-01-20'
+date: '2017-01-23'
 ---
 
 
@@ -413,6 +413,38 @@ str_subset(frases, 'd[eo]')
 frases[str_detect(frases, "d[eo]")]
 ## [1] "a roupa do rei" "de roma"
 ```
+
+
+
+<script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
+
+
+<script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
+
+
+
+## Exercícios
+
+1. Faça uma regex que capture múltiplas versões da palavra 'casa'. Ela deve funcionar
+com as palavras 'Casa', 'CASA', 'CaSa', 'CAsa'. Teste-a usando a função `str_detect`.
+
+<div data-datacamp-exercise data-height="300" data-encoded="true">eyJsYW5ndWFnZSI6InIiLCJzYW1wbGUiOiJsaWJyYXJ5KHN0cmluZ3IpXG5wYWxhdnJhcyA8LSBjKCdDYXNhJywgJ0NBU0EnLCAnQ2FTYScsICdDQXNhJylcbnN0cl9kZXRlY3QocGFsYXZyYXMsIHBhdHRlcm4gPSBfc3VhX3JlZ2V4XykiLCJzb2x1dGlvbiI6ImxpYnJhcnkoc3RyaW5ncilcbnBhbGF2cmFzIDwtIGMoJ0Nhc2EnLCAnQ0FTQScsICdDYVNhJywgJ0NBc2EnKVxuc3RyX2RldGVjdChwYWxhdnJhcywgcmVnZXgoJ2Nhc2EnLCBpZ25vcmVfY2FzZSA9IFRSVUUpKSIsInNjdCI6InRlc3Rfc3R1ZGVudF90eXBlZChcInN0cl9kZXRlY3RcIiwgbm90X3R5cGVkX21zZyA9ICdVc2Ugc3RyX2RldGVjdCEnKVxudGVzdF9leHByZXNzaW9uX3Jlc3VsdChjKFRSVUUsIFRSVUUsIFRSVUUsIFRSVUUpLCBpbmNvcnJlY3RfbXNnID0gXCJVc2UgYSBmdW5cdTAwZTdcdTAwZTNvIHN0cl9kZXRlY3RcIilcbnN1Y2Nlc3NfbXNnKFwiQ29ycmV0byFcIikifQ==</div>
+
+
+
+
+
+2. Imagine que você possui a seguinte string que é a parte final de uma URL:
+
+`/ac/rio-branco/xpto-xyz-1-0-1fds2396-5`
+
+Você precisa transformá-la em 'AC - Rio Branco'.
+
+**Dica**: Use a função `str_split`.
+
+<div data-datacamp-exercise data-height="300" data-encoded="true">eyJsYW5ndWFnZSI6InIiLCJzYW1wbGUiOiJsaWJyYXJ5KHN0cmluZ3IpXG51cmwgPC0gYygnL2FjL3Jpby1icmFuY28veHB0by14eXotMS0wLTFmZHMyMzk2LTUnKSIsInNvbHV0aW9uIjoibGlicmFyeShzdHJpbmdyKVxudXJsIDwtIGMoJy9hYy9yaW8tYnJhbmNvL3hwdG8teHl6LTEtMC0xZmRzMjM5Ni01JylcbmF1eCA8LSBzdHJfc3BsaXQodXJsLCAnLycsIHNpbXBsaWZ5ID0gVFJVRSlcbmF1eFsyXSA8LSBzdHJfdG9fdXBwZXIoYXV4WzJdKVxuYXV4WzNdIDwtIHN0cl9yZXBsYWNlX2FsbChhdXhbM10sICctJywgJyAnKSAlPiUgc3RyX3RvX3RpdGxlKClcbmxvY2FsaXphY2FvIDwtIHN0cl9jKGF1eFsyXSwgYXV4WzNdLCBzZXAgPSAnIC0gJykgIiwic2N0IjoidGVzdF9vYmplY3QoJ2xvY2FsaXphY2FvJywgdW5kZWZpbmVkX21zZyA9ICdEZWZpbmEgbyBvYmpldG8gbG9jYWxpemFjYW8nLCBpbmNvcnJlY3RfbXNnID0gJ2xvY2FsaXphY2FvIG5cdTAwZTNvIGVzdFx1MDBlMSBjb20gbyByZXN1bHRhZG8gZXNwZXJhZG8nKVxuc3VjY2Vzc19tc2coXCJDb3JyZXRvIVwiKSJ9</div>
+
+
 
 
 
