@@ -425,7 +425,7 @@ frases[str_detect(frases, "d[eo]")]
 
 ## Exercícios
 
-1. Faça uma regex que capture múltiplas versões da palavra 'casa'. Ela deve funcionar
+**1.** Faça uma regex que capture múltiplas versões da palavra 'casa'. Ela deve funcionar
 com as palavras 'Casa', 'CASA', 'CaSa', 'CAsa'. Teste-a usando a função `str_detect`.
 
 <div data-datacamp-exercise data-height="300" data-encoded="true">eyJsYW5ndWFnZSI6InIiLCJzYW1wbGUiOiJsaWJyYXJ5KHN0cmluZ3IpXG5wYWxhdnJhcyA8LSBjKCdDYXNhJywgJ0NBU0EnLCAnQ2FTYScsICdDQXNhJylcbnN0cl9kZXRlY3QocGFsYXZyYXMsIHBhdHRlcm4gPSBfc3VhX3JlZ2V4XykiLCJzb2x1dGlvbiI6ImxpYnJhcnkoc3RyaW5ncilcbnBhbGF2cmFzIDwtIGMoJ0Nhc2EnLCAnQ0FTQScsICdDYVNhJywgJ0NBc2EnKVxuc3RyX2RldGVjdChwYWxhdnJhcywgcmVnZXgoJ2Nhc2EnLCBpZ25vcmVfY2FzZSA9IFRSVUUpKSIsInNjdCI6InRlc3Rfc3R1ZGVudF90eXBlZChcInN0cl9kZXRlY3RcIiwgbm90X3R5cGVkX21zZyA9ICdVc2Ugc3RyX2RldGVjdCEnKVxudGVzdF9leHByZXNzaW9uX3Jlc3VsdChjKFRSVUUsIFRSVUUsIFRSVUUsIFRSVUUpLCBpbmNvcnJlY3RfbXNnID0gXCJVc2UgYSBmdW5cdTAwZTdcdTAwZTNvIHN0cl9kZXRlY3RcIilcbnN1Y2Nlc3NfbXNnKFwiQ29ycmV0byFcIikifQ==</div>
@@ -434,18 +434,35 @@ com as palavras 'Casa', 'CASA', 'CaSa', 'CAsa'. Teste-a usando a função `str_d
 
 
 
-2. Imagine que você possui a seguinte string que é a parte final de uma URL:
+**2.** Imagine que você possui a seguinte string que é a parte final de uma URL:
 
 `/ac/rio-branco/xpto-xyz-1-0-1fds2396-5`
 
-Você precisa transformá-la em 'AC - Rio Branco'.
-
-**Dica**: Use a função `str_split`.
+Você precisa transformá-la em 'AC - Rio Branco'. **Dica**: Use a função `str_split`.
 
 <div data-datacamp-exercise data-height="300" data-encoded="true">eyJsYW5ndWFnZSI6InIiLCJzYW1wbGUiOiJsaWJyYXJ5KHN0cmluZ3IpXG51cmwgPC0gYygnL2FjL3Jpby1icmFuY28veHB0by14eXotMS0wLTFmZHMyMzk2LTUnKSIsInNvbHV0aW9uIjoibGlicmFyeShzdHJpbmdyKVxudXJsIDwtIGMoJy9hYy9yaW8tYnJhbmNvL3hwdG8teHl6LTEtMC0xZmRzMjM5Ni01JylcbmF1eCA8LSBzdHJfc3BsaXQodXJsLCAnLycsIHNpbXBsaWZ5ID0gVFJVRSlcbmF1eFsyXSA8LSBzdHJfdG9fdXBwZXIoYXV4WzJdKVxuYXV4WzNdIDwtIHN0cl9yZXBsYWNlX2FsbChhdXhbM10sICctJywgJyAnKSAlPiUgc3RyX3RvX3RpdGxlKClcbmxvY2FsaXphY2FvIDwtIHN0cl9jKGF1eFsyXSwgYXV4WzNdLCBzZXAgPSAnIC0gJykgIiwic2N0IjoidGVzdF9vYmplY3QoJ2xvY2FsaXphY2FvJywgdW5kZWZpbmVkX21zZyA9ICdEZWZpbmEgbyBvYmpldG8gbG9jYWxpemFjYW8nLCBpbmNvcnJlY3RfbXNnID0gJ2xvY2FsaXphY2FvIG5cdTAwZTNvIGVzdFx1MDBlMSBjb20gbyByZXN1bHRhZG8gZXNwZXJhZG8nKVxuc3VjY2Vzc19tc2coXCJDb3JyZXRvIVwiKSJ9</div>
 
 
 
+
+
+**3.** Você possui o seguinte vetor de caracteres: `x <- c('Alto', 'Médio', 'Baixo')`. A partir desse vetor,
+crie um vetor com os valores `'03 - Alto', '02 - Médio' e '03 - Baixo'.
+
+**4.** Crie uma função que retorna `TRUE` quando a string é um [palíndromo](https://pt.wikipedia.org/wiki/Pal%C3%ADndromo) e `FALSO` caso não seja.
+*Palíndromo* é uma sequência que é lida da mesma forma tanto da direita pra esquerda quanto
+da esquerda para a direita. O nome 'Ana', por exemplo, é um palíndromo.
+
+**5.** De acordo com as regras da língua portuguesa, antes de “P” ou “B” devemos usar a letra “M”. Em outras palavras, com outras consoantes, usamos a letra “N”. Suponha que você tem o seguinte
+texto com erros gramaticais.
+
+<div data-datacamp-exercise data-height="300" data-encoded="true">eyJsYW5ndWFnZSI6InIiLCJzYW1wbGUiOiJ0ZXh0byA8LSAnTlx1MDBmM3MgY2hhbWFtb3Mgb3MgYm9uYmVpcm9zIHF1YW5kbyBjb21lXHUwMGU3b3UgbyBpbmNcdTAwZWFuZGlvLicifQ==</div>
+
+Crie uma função para corrigí-lo. 
+
+**5.** O CPF é um número de 11 dígitos, por exemplo: 54491651884. No entanto para facilitar
+a visualização costumamos mostrá-lo com separadores a cada 3 casas: 544.916.518-84.
+Crie uma função que transforma um número de 11 dígitos em uma string com as separações, como um CPF.
 
 
 
