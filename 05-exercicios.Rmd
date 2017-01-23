@@ -11,7 +11,7 @@ tutorial::go_interactive()
 
 ## Exercícios
 
-1. Faça uma regex que capture múltiplas versões da palavra 'casa'. Ela deve funcionar
+**1.** Faça uma regex que capture múltiplas versões da palavra 'casa'. Ela deve funcionar
 com as palavras 'Casa', 'CASA', 'CaSa', 'CAsa'. Teste-a usando a função `str_detect`.
 
 ```{r ex="exercicio_01", type="sample-code"}
@@ -32,13 +32,11 @@ test_expression_result(c(TRUE, TRUE, TRUE, TRUE), incorrect_msg = "Use a funçã
 success_msg("Correto!")
 ```
 
-2. Imagine que você possui a seguinte string que é a parte final de uma URL:
+**2.** Imagine que você possui a seguinte string que é a parte final de uma URL:
 
 `/ac/rio-branco/xpto-xyz-1-0-1fds2396-5`
 
-Você precisa transformá-la em 'AC - Rio Branco'.
-
-**Dica**: Use a função `str_split`.
+Você precisa transformá-la em 'AC - Rio Branco'. **Dica**: Use a função `str_split`.
 
 ```{r ex="exercicio_02", type="sample-code"}
 library(stringr)
@@ -58,4 +56,25 @@ localizacao <- str_c(aux[2], aux[3], sep = ' - ')
 test_object('localizacao', undefined_msg = 'Defina o objeto localizacao', incorrect_msg = 'localizacao não está com o resultado esperado')
 success_msg("Correto!")
 ```
+
+**3.** Você possui o seguinte vetor de caracteres: `x <- c('Alto', 'Médio', 'Baixo')`. A partir desse vetor,
+crie um vetor com os valores `'03 - Alto', '02 - Médio' e '03 - Baixo'.
+
+**4.** Crie uma função que retorna `TRUE` quando a string é um [palíndromo](https://pt.wikipedia.org/wiki/Pal%C3%ADndromo) e `FALSO` caso não seja.
+*Palíndromo* é uma sequência que é lida da mesma forma tanto da direita pra esquerda quanto
+da esquerda para a direita. O nome 'Ana', por exemplo, é um palíndromo.
+
+**5.** De acordo com as regras da língua portuguesa, antes de “P” ou “B” devemos usar a letra “M”. Em outras palavras, com outras consoantes, usamos a letra “N”. Suponha que você tem o seguinte
+texto com erros gramaticais.
+
+```{r, eval = FALSE}
+texto <- 'Nós chamamos os bonbeiros quando começou o incêndio.'
+```
+
+Crie uma função para corrigí-lo. 
+
+**5.** O CPF é um número de 11 dígitos, por exemplo: 54491651884. No entanto para facilitar
+a visualização costumamos mostrá-lo com separadores a cada 3 casas: 544.916.518-84.
+Crie uma função que transforma um número de 11 dígitos em uma string com as separações, como um CPF.
+
 
