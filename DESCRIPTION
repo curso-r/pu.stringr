@@ -7,17 +7,19 @@ Authors@R: c(
     person("CursoR", role = c("cph"))
     )
 Description: placeholder.
-Depends: R (>= 3.3.1)
+Depends:
+    R (>= 3.3.1)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
-  stringr,
-  purrr,
-  dplyr,
-  DT,
-  tidyr,
-  puBuild,
-  webshot,
-  tutorial
+    stringr,
+    purrr,
+    dplyr,
+    DT,
+    tidyr,
+    puBuild,
+    webshot,
+    tutorial
 Remotes: curso-r/puBuild
+RoxygenNote: 5.0.1
