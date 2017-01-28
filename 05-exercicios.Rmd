@@ -2,59 +2,23 @@
 title: "Exercícios"
 ---
 
-<script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
-
-```{r, include=FALSE}
-library(stringr)
-tutorial::go_interactive()
-```
-
 ## Exercícios
 
 **1.** Faça uma regex que capture múltiplas versões da palavra 'casa'. Ela deve funcionar
 com as palavras 'Casa', 'CASA', 'CaSa', 'CAsa'. Teste-a usando a função `str_detect`.
 
 ```{r ex="exercicio_01", type="sample-code"}
-library(stringr)
 palavras <- c('Casa', 'CASA', 'CaSa', 'CAsa')
-str_detect(palavras, pattern = _sua_regex_)
-```
-
-```{r ex="exercicio_01", type="solution"}
-library(stringr)
-palavras <- c('Casa', 'CASA', 'CaSa', 'CAsa')
-str_detect(palavras, regex('casa', ignore_case = TRUE))
-```
-
-```{r ex="exercicio_01", type="sct"}
-test_student_typed("str_detect", not_typed_msg = 'Use str_detect!')
-test_expression_result(c(TRUE, TRUE, TRUE, TRUE), incorrect_msg = "Use a função str_detect")
-success_msg("Correto!")
 ```
 
 **2.** Imagine que você possui a seguinte string que é a parte final de uma URL:
 
-`/ac/rio-branco/xpto-xyz-1-0-1fds2396-5`
+* `/ac/rio-branco/xpto-xyz-1-0-1fds2396-5`
 
 Você precisa transformá-la em 'AC - Rio Branco'. **Dica**: Use a função `str_split`.
 
 ```{r ex="exercicio_02", type="sample-code"}
-library(stringr)
 url <- c('/ac/rio-branco/xpto-xyz-1-0-1fds2396-5')
-```
-
-```{r ex="exercicio_02", type="solution"}
-library(stringr)
-url <- c('/ac/rio-branco/xpto-xyz-1-0-1fds2396-5')
-aux <- str_split(url, '/', simplify = TRUE)
-aux[2] <- str_to_upper(aux[2])
-aux[3] <- str_replace_all(aux[3], '-', ' ') %>% str_to_title()
-localizacao <- str_c(aux[2], aux[3], sep = ' - ') 
-```
-
-```{r ex="exercicio_02", type="sct"}
-test_object('localizacao', undefined_msg = 'Defina o objeto localizacao', incorrect_msg = 'localizacao não está com o resultado esperado')
-success_msg("Correto!")
 ```
 
 **3.** Você possui o seguinte vetor de caracteres: `x <- c('Alto', 'Médio', 'Baixo')`. A partir desse vetor,
@@ -73,7 +37,7 @@ texto <- 'Nós chamamos os bonbeiros quando começou o incêndio.'
 
 Crie uma função para corrigí-lo. 
 
-**5.** O CPF é um número de 11 dígitos, por exemplo: 54491651884. No entanto para facilitar
+**6.** O CPF é um número de 11 dígitos, por exemplo: 54491651884. No entanto para facilitar
 a visualização costumamos mostrá-lo com separadores a cada 3 casas: 544.916.518-84.
 Crie uma função que transforma um número de 11 dígitos em uma string com as separações, como um CPF.
 
