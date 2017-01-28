@@ -459,5 +459,27 @@ Crie uma função para corrigí-lo.
 a visualização costumamos mostrá-lo com separadores a cada 3 casas: 544.916.518-84.
 Crie uma função que transforma um número de 11 dígitos em uma string com as separações, como um CPF.
 
+**7.** Considere o seguinte texto
 
+
+```r
+txt <- "A função mais importante para leitura de dados no `lubridate` é a `ymd`. Essa função serve para ler qualquer data de uma `string` no formato `YYYY-MM-DD`. Essa função é útil pois funciona com qualquer separador entre os elementos da data e também porque temos uma função para cada formato (`mdy`, `dmy`, `dym`, `myd`, `ydm`)."
+```
+
+Extraia todas as combinações da função `ymd`, sem repetições.
+
+**8.** Considere os textos abaixo
+
+
+```r
+txts <- c(
+  'o produto é muito bom',
+  'o produto não é bom',
+  'o produto não é muito bom',
+  'o produto não é ruim',
+  'o produto não é não bom'
+)
+```
+
+Crie uma regra para identificar se o texto refere-se a um feedback positivo ou negativo sobre o produto (considera não bom = ruim e vice-versa). Retorne um vetor lógico que vale `TRUE` se o feedback é positivo e `FALSE` caso contrário.
 
