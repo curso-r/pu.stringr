@@ -4,9 +4,7 @@ title: "Avançado"
 
 ## Funções avançadas
 
-Agora que já vimos as funções básicas do `stringr`, e aprendemos um pouco de regex,
-vamos às funções mais avançadas. Basicmante, essas funções buscarão `patterns` em
-um vetor de strings e farão alguma coisa quando encontrá-lo.
+Agora que já vimos as funções básicas do `stringr` e aprendemos um pouco de regex, vamos às funções mais avançadas. Basicamante, essas funções buscarão `patterns` emum vetor de strings e farão alguma coisa quando encontrá-lo.
 
 Como já vimos na sessão sobre regex, a função mais simples que possui o argumento
 `pattern` é a `str_detect`.
@@ -23,7 +21,7 @@ str_detect("sao paulo sp", pattern = "paulo$")
 
 ### str_replace() e str_replace_all() 
 
-Substituem um padrão (ou todos) encontrado para um outro padrão
+Substituem um padrão (ou todos) encontrado para um outro padrão.
 
 ```{r}
 frutas <- c("uma maçã", "duas pêras", "três bananas")
@@ -31,8 +29,8 @@ str_replace(frutas, "[aeiou]", "-") # substitui a primeira vogal de cada string 
 str_replace_all(frutas, "[aeiou]", "-") # substitui todas as vogais por "-"
 
 yyyy <- "yyyyy yyyyy ll zz"
-str_replace(yyyy, 'y+', 'x') # substitui o primeiro 1 ou mais y's por x
-str_replace_all(yyyy, 'y+', 'x') # substitui todos os 1 ou mais y por somente 1 x
+str_replace(yyyy, 'y+', 'x') # substitui o primeiro y ou y's por x
+str_replace_all(yyyy, 'y+', 'x') # substitui todos os y ou y's por somente um x
 str_replace_all(yyyy, 'y', 'x') # substitui y por x
 
 str_replace_all('string     com    muitos espaços', ' +', ' ') # tirar espaços extras
@@ -78,8 +76,7 @@ sobrenomes
 ### str_match() e str_match_all() 
 
 Extrai pedaços da string identificados pela regex. Caso queira extrair 
-somente a parte identificada, use parênteses. Isso é útil quando você 
-está interessado em uma parte do padrão, mas para identificá-lo precisa
+somente a parte identificada, use parênteses.
 
 ```{r}
 # Exemplo de pergunta SOPt: http://pt.stackoverflow.com/q/150024/6036

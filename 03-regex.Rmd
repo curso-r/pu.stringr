@@ -4,18 +4,11 @@ title: "Regex"
 
 ## Expressões Regulares
 
-Trabalhar com textos exige um certo conhecimento de expressões regulares (*regex*).
-[Expressões regulares](https://pt.wikipedia.org/wiki/Express%C3%A3o_regular) permitem
-identificar conjuntos de caracters, palavras, e outros padrões por meio de uma sintaxe
-concisa. 
+Trabalhar com textos exige um certo conhecimento de expressões regulares (*regex*). [Expressões regulares](https://pt.wikipedia.org/wiki/Express%C3%A3o_regular) permitem identificar conjuntos de caracteres, palavras e outros padrões por meio de uma sintaxe concisa. 
 
-O `stringr` utiliza regex da forma descrita [neste documento](http://www.gagolewski.com/software/stringi/manual/?manpage=stringi-search-regex). 
-A própria [definição](https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html) de 
-regex do R é um ótimo manual.
+O `stringr` utiliza regex da forma descrita [neste documento](http://www.gagolewski.com/software/stringi/manual/?manpage=stringi-search-regex). A própria [definição](https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html) de regex do R é um ótimo manual.
 
-Vamos estudar expressões regulares através de exemplos e com a função `str_detect()`. 
-Essa função retorna `TRUE` se uma string atende à uma expressão regular e `FALSE` 
-em caso contrário.
+Vamos estudar expressões regulares por meio de exemplos e da função `str_detect()`. Ela retorna `TRUE` se uma string atende a uma expressão regular e `FALSE` caso contrário.
 
 Por exemplo:
 
@@ -25,13 +18,9 @@ str_detect("sao paulo", pattern = "paulo$")
 str_detect("sao paulo sp", pattern = "paulo$")
 ```
 
-A regex/pattern "paulo$" indica que o texto deve ser terminado em "paulo". Existem 
-diversos de caracteres auxiliares que vão auxiliar na manipulação dos textos, assim como
-o "$" neste caso. É importante notar que sempre que você estiver passando algum
-valor para o argumento `pattern` de qualquer função do `stringr` ele o entenderá
-como uma regex. 
+A regex/pattern "paulo\$" indica que o texto deve ser terminado em "paulo". Existem diversos de caracteres auxiliares que vão auxiliar na manipulação dos textos, assim como o "\$". Importante: o valor passado para o argumento `pattern` de qualquer função do pacote `stringr` será entendido como uma regex.
 
-A tabela abaixo mostra a aplicação de seis `regex` a seis strings distintas.
+A tabela abaixo mostra a aplicação de seis `regex` em seis strings distintas.
 
 ```{r, message=FALSE, warning=FALSE, include=FALSE}
 testes <- c('ban', 'banana', 'abandonado', 'pranab anderson', 'BANANA', 
@@ -64,7 +53,7 @@ list(testes = testes, expressoes = expressoes) %>%
 Os caracteres `+`, `*` e `{x,y}` indicam quantas vezes um padrão se repete:
 
 - `ey+` significa `e` e depois `y` "**uma vez** ou mais". Por exemplo, reconhece `hey`, `heyy`, `a eyyy`, mas não reconhece `e`, `y` nem `yy`.
-- `ey*` significa "**zero vezes** ou mais". Por exemplo, reconhece `hey`, `heyy`, `a eyyy` e `e`, mas não reconhece `y` nem `yy`.
+- `ey*` significa "**nenhuma vez** ou mais". Por exemplo, reconhece `hey`, `heyy`, `a eyyy` e `e`, mas não reconhece `y` nem `yy`.
 - `ey{3}` significa "exatamente três vezes". Por exemplo, reconhece `eyyy` e `eyyyy`, mas não reconhece `eyy`.
 - `ey{1,3}` significa "entre uma e três vezes".
 
