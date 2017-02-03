@@ -12,16 +12,11 @@ knitr::opts_chunk$set(
 
 Variáveis do tipo texto são muito comuns nos bancos de dados e geralmente são
 colunas que dão bastante trabalho para serem manipuladas. É muito comun encontrar
-bancos de dados em que os textos de uma coluna não estão padronizados, por exemplo
-uma coluna `Estado` em que são encontrados "SP", "sp", "Sao Paulo", "São Paulo", etc
-todas as variações indicando o mesmo estado.
+bancos de dados em que os textos de uma coluna não estão padronizados, por exemplo, uma coluna `Estado` com "SP", "sp", "Sao Paulo", "São Paulo" etc, todas as variações indicando o mesmo estado.
 
-Para manipular esses textos o R possui diversas funções para manipular textos, no entanto,
-as funções do `base` não possuem um interface consistente e parece que cada uma 
-tem a sua forma de passar os parâmetros, dificultando o processo durante a análise.
+Para manipular esses textos, o R possui diversas funções para manipular textos. No entanto, as funções do `base` não possuem uma interface consistente e cada uma tem a sua forma de passar os parâmetros, dificultando a programação durante a análise.
 
-Por isso, é recomendado usar o pacote `stringr` que possui a sintaxe consistente 
-permitindo que o usuário realize qualquer manipulação com textos com maior facilidade.
+Por isso, é recomendado usar o pacote `stringr`, que possui uma sintaxe consistente, permitindo que o usuário realize qualquer manipulação com textos com maior facilidade.
 
 ### Vantagens do stringr em relação ao base
 
@@ -38,6 +33,6 @@ permitindo que o usuário realize qualquer manipulação com textos com maior fa
 
 Inicialmente, o `stringr` era um *wrapper* de funções do `base`. Depois disso, 
 surgiu um novo pacote `stringi`, com sintaxe similar ao `stringr`, mas funcionando como 
-*wrapper* da biblioteca ICU. No entanto, Wickham gostou tanto do pacote `stringi` 
+*wrapper* da biblioteca ICU. Wickham gostou tanto do pacote `stringi` 
 que decidiu reescrever o `stringr` como um *wrapper* do `stringi`. 
 Veja [essa página](https://github.com/tidyverse/stringr/blob/master/NEWS.md) para detalhes.

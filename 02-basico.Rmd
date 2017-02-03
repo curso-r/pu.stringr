@@ -12,16 +12,14 @@ knitr::opts_chunk$set(
 )
 ```
 
-Todas as funções do `stringr` começam com o prefixo `str`, isso ajuda na hora de 
-encontrar a função que você está procurando. No Rstudio, basta digitar `str_` e
-apertar tab que você verá algo parecido com a imagem a baixo. Você pode ir descendo
-com as setas do teclado e ver o que cada função faz até encontrar a função que estava
-procurando.
+Todas as funções do `stringr` começam com o prefixo `str`. Isso ajuda na hora de 
+encontrar a função que você está procurando. No Rstudio, digite `str_` e
+aperte *tab* para visualizar a lista de funções com esse prefixo. Você pode verificar o que cada função faz até encontrar a que atende às suas necessidades.
 
 ![str_tab](figures/str_tab.png)
 
-Nesta sessão vamos utilizar as funções mais simples do `stringr`, depois vamos
-ensinar um pouco de Regex e em seguida veremos as funções mais avançadas do 
+Nesta sessão, vamos utilizar as funções mais simples do `stringr`. Depois vamos
+ensinar um pouco de Regex e, em seguida, veremos as funções mais avançadas do 
 pacote.
 
 ### str_length
@@ -35,7 +33,7 @@ str_length("olá")
 length("olá")
 ```
 
-Veja `str_length` é diferente de `length`. O primeiro retorna o número de caracteres
+Veja: `str_length` é diferente de `length`. O primeiro retorna o número de caracteres
 e o segundo retorna o comprimento do objeto. Isso fica mais claro no seguinte exemplo:
 
 ```{r}
@@ -44,8 +42,7 @@ str_length(s)
 length(s)
 ```
 
-Agora o `str_length` retornou um vetor com o número de caracteres de cada elemento do vetor `s`, 
-e o `length` retornou o comprimento do vetor `s`. Note que espaço é considerado como um caractere. 
+Agora, o `str_length` retornou um vetor com o número de caracteres de cada elemento do vetor `s` e o `length` retornou o comprimento do vetor `s`. Note que espaço é considerado como um caractere. 
 
 ### str_trim
 
@@ -61,21 +58,20 @@ A função `str_trim` ajuda removendo os espaços excedetes antes e depois da st
 
 ### str_sub
 
-As vezes você precisa obter alguma parte fixa de uma string. Por exemplo, as vezes você 
-encontra variáveis com valores da forma:
+Às vezes você precisa obter alguma parte fixa de uma string, como, por exemplo, encontrar variáveis com valores da forma:
 
 ```{r}
 s <- c("01-Feminino", "02-Masculino", "03-Indefinido")
 ```
 
-Você pode querer manipular essa string para retirar obter apenas a parte final da string.
-Neste caso pode usar a função `str_sub`
+Você pode querer manipular essa string para obter apenas a parte final da string.
+Neste caso, pode usar a função `str_sub`.
 
 ```{r}
 str_sub(s, start = 4) # pegar do quarto até o último caractere
 ```
 
-É possível obter também apenas os números
+Também é possível obter apenas os números:
 
 ```{r}
 str_sub(s, end = 2) # pegar apenas os dois primeiros caracteres
@@ -89,7 +85,7 @@ str_sub(s, end = -4)
 str_sub(s, start = -2)
 ```
 
-É possível também usar os argumentos `start` e `end` conjuntamente.
+É possível usar os argumentos `start` e `end` conjuntamente.
 
 ```{r}
 s <- c("__SP__", "__MG__", "__RJ__")
@@ -107,6 +103,4 @@ str_to_upper(s)
 str_to_title(s)
 ```
 
-Essas são as funções mais simples do pacote `stringr` e mão exigem nenhum conhecimento
-de regex. Note que nenhuma delas possui o parâmetro `pattern`, você verá como especificar
-esse parâmetros nas próximas sessões.
+Essas são as funções mais simples do pacote `stringr` e não exigem nenhum conhecimento de regex. Note que nenhuma delas possui o parâmetro `pattern`. Você verá como especificar esse parâmetros nas próximas sessões.
