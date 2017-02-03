@@ -1,6 +1,6 @@
 ---
 title: Stringr
-date: '2017-01-28'
+date: '2017-02-03'
 ---
 
 
@@ -9,16 +9,11 @@ date: '2017-01-28'
 
 Variáveis do tipo texto são muito comuns nos bancos de dados e geralmente são
 colunas que dão bastante trabalho para serem manipuladas. É muito comun encontrar
-bancos de dados em que os textos de uma coluna não estão padronizados, por exemplo
-uma coluna `Estado` em que são encontrados "SP", "sp", "Sao Paulo", "São Paulo", etc
-todas as variações indicando o mesmo estado.
+bancos de dados em que os textos de uma coluna não estão padronizados, por exemplo, uma coluna `Estado` com "SP", "sp", "Sao Paulo", "São Paulo" etc, todas as variações indicando o mesmo estado.
 
-Para manipular esses textos o R possui diversas funções para manipular textos, no entanto,
-as funções do `base` não possuem um interface consistente e parece que cada uma 
-tem a sua forma de passar os parâmetros, dificultando o processo durante a análise.
+Para manipular esses textos, o R possui diversas funções para manipular textos. No entanto, as funções do `base` não possuem uma interface consistente e cada uma tem a sua forma de passar os parâmetros, dificultando a programação durante a análise.
 
-Por isso, é recomendado usar o pacote `stringr` que possui a sintaxe consistente 
-permitindo que o usuário realize qualquer manipulação com textos com maior facilidade.
+Por isso, é recomendado usar o pacote `stringr`, que possui uma sintaxe consistente, permitindo que o usuário realize qualquer manipulação com textos com maior facilidade.
 
 ### Vantagens do stringr em relação ao base
 
@@ -35,7 +30,7 @@ permitindo que o usuário realize qualquer manipulação com textos com maior fa
 
 Inicialmente, o `stringr` era um *wrapper* de funções do `base`. Depois disso, 
 surgiu um novo pacote `stringi`, com sintaxe similar ao `stringr`, mas funcionando como 
-*wrapper* da biblioteca ICU. No entanto, Wickham gostou tanto do pacote `stringi` 
+*wrapper* da biblioteca ICU. Wickham gostou tanto do pacote `stringi` 
 que decidiu reescrever o `stringr` como um *wrapper* do `stringi`. 
 Veja [essa página](https://github.com/tidyverse/stringr/blob/master/NEWS.md) para detalhes.
 
@@ -45,16 +40,14 @@ Veja [essa página](https://github.com/tidyverse/stringr/blob/master/NEWS.md) pa
 
 
 
-Todas as funções do `stringr` começam com o prefixo `str`, isso ajuda na hora de 
-encontrar a função que você está procurando. No Rstudio, basta digitar `str_` e
-apertar tab que você verá algo parecido com a imagem a baixo. Você pode ir descendo
-com as setas do teclado e ver o que cada função faz até encontrar a função que estava
-procurando.
+Todas as funções do `stringr` começam com o prefixo `str`. Isso ajuda na hora de 
+encontrar a função que você está procurando. No Rstudio, digite `str_` e
+aperte *tab* para visualizar a lista de funções com esse prefixo. Você pode verificar o que cada função faz até encontrar a que atende às suas necessidades.
 
 ![str_tab](figures/str_tab.png)
 
-Nesta sessão vamos utilizar as funções mais simples do `stringr`, depois vamos
-ensinar um pouco de Regex e em seguida veremos as funções mais avançadas do 
+Nesta sessão, vamos utilizar as funções mais simples do `stringr`. Depois vamos
+ensinar um pouco de Regex e, em seguida, veremos as funções mais avançadas do 
 pacote.
 
 ### str_length
@@ -71,7 +64,7 @@ length("olá")
 ## [1] 1
 ```
 
-Veja `str_length` é diferente de `length`. O primeiro retorna o número de caracteres
+Veja: `str_length` é diferente de `length`. O primeiro retorna o número de caracteres
 e o segundo retorna o comprimento do objeto. Isso fica mais claro no seguinte exemplo:
 
 
@@ -83,8 +76,7 @@ length(s)
 ## [1] 2
 ```
 
-Agora o `str_length` retornou um vetor com o número de caracteres de cada elemento do vetor `s`, 
-e o `length` retornou o comprimento do vetor `s`. Note que espaço é considerado como um caractere. 
+Agora, o `str_length` retornou um vetor com o número de caracteres de cada elemento do vetor `s` e o `length` retornou o comprimento do vetor `s`. Note que espaço é considerado como um caractere. 
 
 ### str_trim
 
@@ -102,16 +94,15 @@ A função `str_trim` ajuda removendo os espaços excedetes antes e depois da st
 
 ### str_sub
 
-As vezes você precisa obter alguma parte fixa de uma string. Por exemplo, as vezes você 
-encontra variáveis com valores da forma:
+Às vezes você precisa obter alguma parte fixa de uma string, como, por exemplo, encontrar variáveis com valores da forma:
 
 
 ```r
 s <- c("01-Feminino", "02-Masculino", "03-Indefinido")
 ```
 
-Você pode querer manipular essa string para retirar obter apenas a parte final da string.
-Neste caso pode usar a função `str_sub`
+Você pode querer manipular essa string para obter apenas a parte final da string.
+Neste caso, pode usar a função `str_sub`.
 
 
 ```r
@@ -119,7 +110,7 @@ str_sub(s, start = 4) # pegar do quarto até o último caractere
 ## [1] "Feminino"   "Masculino"  "Indefinido"
 ```
 
-É possível obter também apenas os números
+Também é possível obter apenas os números:
 
 
 ```r
@@ -138,7 +129,7 @@ str_sub(s, start = -2)
 ## [1] "01" "02" "03"
 ```
 
-É possível também usar os argumentos `start` e `end` conjuntamente.
+É possível usar os argumentos `start` e `end` conjuntamente.
 
 
 ```r
@@ -162,9 +153,7 @@ str_to_title(s)
 ## [1] "Olá, Tudo Bem?"
 ```
 
-Essas são as funções mais simples do pacote `stringr` e mão exigem nenhum conhecimento
-de regex. Note que nenhuma delas possui o parâmetro `pattern`, você verá como especificar
-esse parâmetros nas próximas sessões.
+Essas são as funções mais simples do pacote `stringr` e não exigem nenhum conhecimento de regex. Note que nenhuma delas possui o parâmetro `pattern`. Você verá como especificar esse parâmetros nas próximas sessões.
 
 
 
