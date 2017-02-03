@@ -159,18 +159,11 @@ Essas são as funções mais simples do pacote `stringr` e não exigem nenhum co
 
 ## Expressões Regulares
 
-Trabalhar com textos exige um certo conhecimento de expressões regulares (*regex*).
-[Expressões regulares](https://pt.wikipedia.org/wiki/Express%C3%A3o_regular) permitem
-identificar conjuntos de caracters, palavras, e outros padrões por meio de uma sintaxe
-concisa. 
+Trabalhar com textos exige um certo conhecimento de expressões regulares (*regex*). [Expressões regulares](https://pt.wikipedia.org/wiki/Express%C3%A3o_regular) permitem identificar conjuntos de caracteres, palavras e outros padrões por meio de uma sintaxe concisa. 
 
-O `stringr` utiliza regex da forma descrita [neste documento](http://www.gagolewski.com/software/stringi/manual/?manpage=stringi-search-regex). 
-A própria [definição](https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html) de 
-regex do R é um ótimo manual.
+O `stringr` utiliza regex da forma descrita [neste documento](http://www.gagolewski.com/software/stringi/manual/?manpage=stringi-search-regex). A própria [definição](https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html) de regex do R é um ótimo manual.
 
-Vamos estudar expressões regulares através de exemplos e com a função `str_detect()`. 
-Essa função retorna `TRUE` se uma string atende à uma expressão regular e `FALSE` 
-em caso contrário.
+Vamos estudar expressões regulares por meio de exemplos e da função `str_detect()`. Ela retorna `TRUE` se uma string atende a uma expressão regular e `FALSE` caso contrário.
 
 Por exemplo:
 
@@ -183,13 +176,9 @@ str_detect("sao paulo sp", pattern = "paulo$")
 ## [1] FALSE
 ```
 
-A regex/pattern "paulo$" indica que o texto deve ser terminado em "paulo". Existem 
-diversos de caracteres auxiliares que vão auxiliar na manipulação dos textos, assim como
-o "$" neste caso. É importante notar que sempre que você estiver passando algum
-valor para o argumento `pattern` de qualquer função do `stringr` ele o entenderá
-como uma regex. 
+A regex/pattern "paulo\$" indica que o texto deve ser terminado em "paulo". Existem diversos de caracteres auxiliares que vão auxiliar na manipulação dos textos, assim como o "\$". Importante: o valor passado para o argumento `pattern` de qualquer função do pacote `stringr` será entendido como uma regex.
 
-A tabela abaixo mostra a aplicação de seis `regex` a seis strings distintas.
+A tabela abaixo mostra a aplicação de seis `regex` em seis strings distintas.
 
 
 
@@ -208,7 +197,7 @@ A tabela abaixo mostra a aplicação de seis `regex` a seis strings distintas.
 Os caracteres `+`, `*` e `{x,y}` indicam quantas vezes um padrão se repete:
 
 - `ey+` significa `e` e depois `y` "**uma vez** ou mais". Por exemplo, reconhece `hey`, `heyy`, `a eyyy`, mas não reconhece `e`, `y` nem `yy`.
-- `ey*` significa "**zero vezes** ou mais". Por exemplo, reconhece `hey`, `heyy`, `a eyyy` e `e`, mas não reconhece `y` nem `yy`.
+- `ey*` significa "**nenhuma vez** ou mais". Por exemplo, reconhece `hey`, `heyy`, `a eyyy` e `e`, mas não reconhece `y` nem `yy`.
 - `ey{3}` significa "exatamente três vezes". Por exemplo, reconhece `eyyy` e `eyyyy`, mas não reconhece `eyy`.
 - `ey{1,3}` significa "entre uma e três vezes".
 
@@ -239,9 +228,7 @@ Um bom lugar para testar o funcionamento de expressões regulares é o [regex101
 
 ## Funções avançadas
 
-Agora que já vimos as funções básicas do `stringr`, e aprendemos um pouco de regex,
-vamos às funções mais avançadas. Basicmante, essas funções buscarão `patterns` em
-um vetor de strings e farão alguma coisa quando encontrá-lo.
+Agora que já vimos as funções básicas do `stringr` e aprendemos um pouco de regex, vamos às funções mais avançadas. Basicamante, essas funções buscarão `patterns` emum vetor de strings e farão alguma coisa quando encontrá-lo.
 
 Como já vimos na sessão sobre regex, a função mais simples que possui o argumento
 `pattern` é a `str_detect`.
@@ -261,7 +248,7 @@ str_detect("sao paulo sp", pattern = "paulo$")
 
 ### str_replace() e str_replace_all() 
 
-Substituem um padrão (ou todos) encontrado para um outro padrão
+Substituem um padrão (ou todos) encontrado para um outro padrão.
 
 
 ```r
@@ -272,9 +259,9 @@ str_replace_all(frutas, "[aeiou]", "-") # substitui todas as vogais por "-"
 ## [1] "-m- m-çã"     "d--s pêr-s"   "três b-n-n-s"
 
 yyyy <- "yyyyy yyyyy ll zz"
-str_replace(yyyy, 'y+', 'x') # substitui o primeiro 1 ou mais y's por x
+str_replace(yyyy, 'y+', 'x') # substitui o primeiro y ou y's por x
 ## [1] "x yyyyy ll zz"
-str_replace_all(yyyy, 'y+', 'x') # substitui todos os 1 ou mais y por somente 1 x
+str_replace_all(yyyy, 'y+', 'x') # substitui todos os y ou y's por somente um x
 ## [1] "x x ll zz"
 str_replace_all(yyyy, 'y', 'x') # substitui y por x
 ## [1] "xxxxx xxxxx ll zz"
@@ -333,8 +320,7 @@ sobrenomes
 ### str_match() e str_match_all() 
 
 Extrai pedaços da string identificados pela regex. Caso queira extrair 
-somente a parte identificada, use parênteses. Isso é útil quando você 
-está interessado em uma parte do padrão, mas para identificá-lo precisa
+somente a parte identificada, use parênteses.
 
 
 ```r
