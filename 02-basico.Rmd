@@ -1,5 +1,6 @@
 ---
 title: "Conceitos básicos"
+author: "Daniel Falbel, William Amorim"
 ---
 
 ## Conceitos básicos
@@ -12,37 +13,44 @@ knitr::opts_chunk$set(
 )
 ```
 
-Todas as funções do `stringr` começam com o prefixo `str`. Isso ajuda na hora de 
+Todas as funções do `stringr` começam com o prefixo `str_`. Isso ajuda na hora de 
 encontrar a função que você está procurando. No Rstudio, digite `str_` e
-aperte *tab* para visualizar a lista de funções com esse prefixo. Você pode verificar o que cada função faz até encontrar a que atende às suas necessidades.
+aperte **TAB** para visualizar a lista de funções com esse prefixo. Você pode verificar o que cada função faz até encontrar a que atende às suas necessidades.
 
 ![str_tab](figures/str_tab.png)
 
-Nesta sessão, vamos utilizar as funções mais simples do `stringr`. Depois vamos
-ensinar um pouco de Regex e, em seguida, veremos as funções mais avançadas do 
-pacote.
+Nesta seção, vamos utilizar as funções mais simples do `stringr`. Em seguida, vamos falar um pouco de Regex e então veremos funções mais avançadas do pacote.
+
+Antes de mais nada, innstale e carregue o pacote `stringr`.
+
+```{r, eval = FALSE}
+install.packages("stringr")
+library(stringr)
+```
+
 
 ### str_length
 
-A função mais simples do `stringr` é a função `str_length`. Esta função recebe 
-apenas uma string como argumento e retorna o número de caracteres. Por exemplo:
+A função mais simples do `stringr()` é a função `str_length()`. Esta função recebe como argumento um vetor de *strings* e retorna o número de caracteres de cada *string*. Repare que o espaço `" "` é considerado um caracter.
 
 ```{r}
-library(stringr)
-str_length("olá")
-length("olá")
+str_length("São Paulo")
+str_length(c("São Paulo", "Rio de Janeiro", 
+             "Rio Grande do Norte", "Acre"))
+
 ```
 
-Veja: `str_length` é diferente de `length`. O primeiro retorna o número de caracteres
-e o segundo retorna o comprimento do objeto. Isso fica mais claro no seguinte exemplo:
+Note que `str_length()` é diferente de `length()`. O primeiro retorna o número de caracteres e o segundo retorna o comprimento do objeto. Isso fica mais claro no seguinte exemplo:
 
 ```{r}
-s <- c("olá mundo", "olá universo")
+s <- str_length(c("São Paulo", "Rio de Janeiro", 
+                  "Rio Grande do Norte", "Acre"))
+
 str_length(s)
 length(s)
 ```
 
-Agora, o `str_length` retornou um vetor com o número de caracteres de cada elemento do vetor `s` e o `length` retornou o comprimento do vetor `s`. Note que espaço é considerado como um caractere. 
+A função `str_length()` retornou um vetor com o número de caracteres de cada elemento do vetor `s`, enquanto `length()` retornou o comprimento do vetor `s`.
 
 ### str_trim
 
