@@ -1,36 +1,33 @@
 ---
 title: Stringr
-date: '2017-02-03'
+date: '2017-07-06'
 ---
 
 
 
 
 
-Variáveis do tipo texto são muito comuns nos bancos de dados e geralmente são
-colunas que dão bastante trabalho para serem manipuladas. É muito comun encontrar
-bancos de dados em que os textos de uma coluna não estão padronizados, por exemplo, uma coluna `Estado` com "SP", "sp", "Sao Paulo", "São Paulo" etc, todas as variações indicando o mesmo estado.
+Variáveis de texto são muito comuns nos bancos de dados e, geralmente, dão bastante trabalho para serem manipuladas. É muito comun encontrarmos colunas com categorias não padronizadas, como, por exemplo, uma variável `Estado` com "SP", "sp", "Sao Paulo", "São Paulo" etc, todas indicando o mesmo estado.
 
-Para manipular esses textos, o R possui diversas funções para manipular textos. No entanto, as funções do `base` não possuem uma interface consistente e cada uma tem a sua forma de passar os parâmetros, dificultando a programação durante a análise.
+O R possui várias funções para manipular textos (ou *strings*). No entanto, as funções do `base` não possuem uma interface consistente e cada uma tem a sua forma de passar os parâmetros, dificultando a programação durante a análise.
 
-Por isso, é recomendado usar o pacote `stringr`, que possui uma sintaxe consistente, permitindo que o usuário realize qualquer manipulação com textos com maior facilidade.
+Pensando nisso, Hadley Wickham deu aquela força para a comunidade R e criou o pacote `stringr`, que possui uma sintaxe consistente, permitindo o usuário manipular textos com muito mais facilidade.
 
 ### Vantagens do stringr em relação ao base
 
 - Sintaxe unificada, o que auxilia na memorização e leitura do código.
 - Todas as funções são vetorizadas.
-- Construído sobre a [biblioteca ICU](http://site.icu-project.org/), implementada em `C` e `C++`, apresentando resultados rápidos e confiáveis.
+- Construído sobre a [biblioteca ICU](http://site.icu-project.org/), implementada em `C` e `C++`. É uma garantia de resultados mais rápidos e confiáveis.
 
 ### Regras básicas do pacote
 
 - As funções de manipulação de texto começam com `str_`. Caso esqueça o nome de uma função, basta digitar `stringr::str_` e apertar `TAB` para ver quais são as opções.
-- O primeiro argumento da função é sempre uma `string` ou um vetor de `strings`.
+- O primeiro argumento da função é sempre uma *string* ou um vetor de *strings*.
 
 ### Curiosidade
 
 Inicialmente, o `stringr` era um *wrapper* de funções do `base`. Depois disso, 
-surgiu um novo pacote `stringi`, com sintaxe similar ao `stringr`, mas funcionando como 
-*wrapper* da biblioteca ICU. Wickham gostou tanto do pacote `stringi` 
+surgiu um novo pacote `stringi`, com sintaxe similar ao `stringr`, mas funcionando como *wrapper* da biblioteca ICU. Wickham gostou tanto do pacote `stringi` 
 que decidiu reescrever o `stringr` como um *wrapper* do `stringi`. 
 Veja [essa página](https://github.com/tidyverse/stringr/blob/master/NEWS.md) para detalhes.
 
