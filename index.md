@@ -7,7 +7,7 @@ date: '2017-07-06'
 
 
 
-Variáveis de texto são muito comuns nos bancos de dados e, geralmente, dão bastante trabalho para serem manipuladas. É muito comun encontrarmos colunas com categorias não padronizadas, como, por exemplo, uma variável `Estado` com "SP", "sp", "Sao Paulo", "São Paulo" etc, todas indicando o mesmo estado.
+Variáveis de texto são muito comuns nos bancos de dados e, geralmente, dão bastante trabalho para serem manipuladas. É muito comum encontrarmos colunas com categorias não padronizadas, como, por exemplo, uma variável `Estado` com "SP", "sp", "Sao Paulo", "São Paulo" etc, todas indicando o mesmo estado.
 
 O R possui várias funções para manipular textos (ou *strings*). No entanto, as funções do `base` não possuem uma interface consistente e cada uma tem a sua forma de passar os parâmetros, dificultando a programação durante a análise.
 
@@ -37,43 +37,51 @@ Veja [essa página](https://github.com/tidyverse/stringr/blob/master/NEWS.md) pa
 
 
 
-Todas as funções do `stringr` começam com o prefixo `str`. Isso ajuda na hora de 
+Todas as funções do `stringr` começam com o prefixo `str_`. Isso ajuda na hora de 
 encontrar a função que você está procurando. No Rstudio, digite `str_` e
-aperte *tab* para visualizar a lista de funções com esse prefixo. Você pode verificar o que cada função faz até encontrar a que atende às suas necessidades.
+aperte **TAB** para visualizar a lista de funções com esse prefixo. Você pode verificar o que cada função faz até encontrar a que atende às suas necessidades.
 
 ![str_tab](figures/str_tab.png)
 
-Nesta sessão, vamos utilizar as funções mais simples do `stringr`. Depois vamos
-ensinar um pouco de Regex e, em seguida, veremos as funções mais avançadas do 
-pacote.
+Nesta seção, vamos utilizar as funções mais simples do `stringr`. Em seguida, vamos falar um pouco de Regex e então veremos funções mais avançadas do pacote.
+
+Antes de mais nada, innstale e carregue o pacote `stringr`.
+
+
+```r
+install.packages("stringr")
+library(stringr)
+```
+
 
 ### str_length
 
-A função mais simples do `stringr` é a função `str_length`. Esta função recebe 
-apenas uma string como argumento e retorna o número de caracteres. Por exemplo:
+A função mais simples do `stringr()` é a função `str_length()`. Esta função recebe como argumento um vetor de *strings* e retorna o número de caracteres de cada *string*. Repare que o espaço `" "` é considerado um caracter.
 
 
 ```r
-library(stringr)
-str_length("olá")
-## [1] 3
-length("olá")
-## [1] 1
+str_length("São Paulo")
+## Error in str_length("São Paulo"): could not find function "str_length"
+str_length(c("São Paulo", "Rio de Janeiro", 
+             "Rio Grande do Norte", "Acre"))
+## Error in str_length(c("São Paulo", "Rio de Janeiro", "Rio Grande do Norte", : could not find function "str_length"
 ```
 
-Veja: `str_length` é diferente de `length`. O primeiro retorna o número de caracteres
-e o segundo retorna o comprimento do objeto. Isso fica mais claro no seguinte exemplo:
+Note que `str_length()` é diferente de `length()`. O primeiro retorna o número de caracteres e o segundo retorna o comprimento do objeto. Isso fica mais claro no seguinte exemplo:
 
 
 ```r
-s <- c("olá mundo", "olá universo")
+s <- str_length(c("São Paulo", "Rio de Janeiro", 
+                  "Rio Grande do Norte", "Acre"))
+## Error in str_length(c("São Paulo", "Rio de Janeiro", "Rio Grande do Norte", : could not find function "str_length"
+
 str_length(s)
-## [1]  9 12
+## Error in str_length(s): could not find function "str_length"
 length(s)
-## [1] 2
+## Error in eval(expr, envir, enclos): object 's' not found
 ```
 
-Agora, o `str_length` retornou um vetor com o número de caracteres de cada elemento do vetor `s` e o `length` retornou o comprimento do vetor `s`. Note que espaço é considerado como um caractere. 
+A função `str_length()` retornou um vetor com o número de caracteres de cada elemento do vetor `s`, enquanto `length()` retornou o comprimento do vetor `s`.
 
 ### str_trim
 
@@ -84,7 +92,7 @@ provenientes de formulários em que cada usuário escreve da forma que prefere.
 ```r
 string <- '\nessa      string é muito suja       \n'
 str_trim(string)
-## [1] "essa      string é muito suja"
+## Error in str_trim(string): could not find function "str_trim"
 ```
 
 A função `str_trim` ajuda removendo os espaços excedetes antes e depois da string.
@@ -104,7 +112,7 @@ Neste caso, pode usar a função `str_sub`.
 
 ```r
 str_sub(s, start = 4) # pegar do quarto até o último caractere
-## [1] "Feminino"   "Masculino"  "Indefinido"
+## Error in str_sub(s, start = 4): could not find function "str_sub"
 ```
 
 Também é possível obter apenas os números:
@@ -112,7 +120,7 @@ Também é possível obter apenas os números:
 
 ```r
 str_sub(s, end = 2) # pegar apenas os dois primeiros caracteres
-## [1] "01" "02" "03"
+## Error in str_sub(s, end = 2): could not find function "str_sub"
 ```
 
 Em outros casos você precisa obter os últimos 2 caracteres.
@@ -121,9 +129,9 @@ Em outros casos você precisa obter os últimos 2 caracteres.
 ```r
 s <- c("Feminino-01", "Masculino-02", "Indefinido-03")
 str_sub(s, end = -4)
-## [1] "Feminino"   "Masculino"  "Indefinido"
+## Error in str_sub(s, end = -4): could not find function "str_sub"
 str_sub(s, start = -2)
-## [1] "01" "02" "03"
+## Error in str_sub(s, start = -2): could not find function "str_sub"
 ```
 
 É possível usar os argumentos `start` e `end` conjuntamente.
@@ -132,7 +140,7 @@ str_sub(s, start = -2)
 ```r
 s <- c("__SP__", "__MG__", "__RJ__")
 str_sub(s, 3, 4)
-## [1] "SP" "MG" "RJ"
+## Error in str_sub(s, 3, 4): could not find function "str_sub"
 ```
 
 ### str_to_upper, str_to_lower, str_to_title
@@ -143,11 +151,11 @@ Essas funções servem para modificar a caixa das letras. Por exemplo:
 ```r
 s <- "Olá, tudo bem?"
 str_to_lower(s)
-## [1] "olá, tudo bem?"
+## Error in str_to_lower(s): could not find function "str_to_lower"
 str_to_upper(s)
-## [1] "OLÁ, TUDO BEM?"
+## Error in str_to_upper(s): could not find function "str_to_upper"
 str_to_title(s)
-## [1] "Olá, Tudo Bem?"
+## Error in str_to_title(s): could not find function "str_to_title"
 ```
 
 Essas são as funções mais simples do pacote `stringr` e não exigem nenhum conhecimento de regex. Note que nenhuma delas possui o parâmetro `pattern`. Você verá como especificar esse parâmetros nas próximas sessões.
