@@ -1,6 +1,6 @@
 ---
 title: Stringr
-date: '2017-07-06'
+date: '2017-07-08'
 ---
 
 
@@ -38,14 +38,14 @@ Veja [essa página](https://github.com/tidyverse/stringr/blob/master/NEWS.md) pa
 
 
 Todas as funções do `stringr` começam com o prefixo `str_`. Isso ajuda na hora de 
-encontrar a função que você está procurando. No Rstudio, digite `str_` e
+encontrar a função que você está procurando. No RStudio, digite `str_` e
 aperte **TAB** para visualizar a lista de funções com esse prefixo. Você pode verificar o que cada função faz até encontrar a que atende às suas necessidades.
 
 ![str_tab](figures/str_tab.png)
 
-Nesta seção, vamos utilizar as funções mais simples do `stringr`. Em seguida, vamos falar um pouco de Regex e então veremos funções mais avançadas do pacote.
+Nesta seção, vamos utilizar as funções mais simples do `stringr`. Em seguida, vamos falar um pouco de regex e então veremos funções mais avançadas do pacote.
 
-Antes de mais nada, innstale e carregue o pacote `stringr`.
+Antes de mais nada, instale e carregue o pacote `stringr`.
 
 
 ```r
@@ -86,28 +86,36 @@ A função `str_length()` retornou um vetor com o número de caracteres de cada 
 ### str_trim
 
 É muito comum encontrar textos que vêm com espaços a mais, principalmente de dados
-provenientes de formulários em que cada usuário escreve da forma que prefere. 
+provenientes de formulários em que cada usuário escreve da forma que prefere. Isso é um problema pois cria categorias diferentes para valores que deveriam ser iguais. Espaços antes e após o texto são especialmente chatos, pois pode ser difícil detectá-los.
 
 
 ```r
-string <- '\nessa      string é muito suja       \n'
-str_trim(string)
-## Error in str_trim(string): could not find function "str_trim"
+s <- c("M", "F", "F", " M", " F ", "M")
+as.factor(s)
+## [1] M   F   F    M   F  M  
+## Levels:  F   M F M
 ```
 
-A função `str_trim` ajuda removendo os espaços excedetes antes e depois da string.
+A função `str_trim()` ajuda removendo os espaços excedentes antes e depois da string.
+
+
+```r
+s2 <- str_trim(s)
+## Error in str_trim(s): could not find function "str_trim"
+as.factor(s2)
+## Error in is.factor(x): object 's2' not found
+```
 
 ### str_sub
 
-Às vezes você precisa obter alguma parte fixa de uma string, como, por exemplo, encontrar variáveis com valores da forma:
+Não é raro você precisar obter uma parte fixa de uma *string*, como, por exemplo, manipular textos da forma:
 
 
 ```r
 s <- c("01-Feminino", "02-Masculino", "03-Indefinido")
 ```
 
-Você pode querer manipular essa string para obter apenas a parte final da string.
-Neste caso, pode usar a função `str_sub`.
+Você pode querer apenas a parte final da string. Neste caso, pode usar a função `str_sub()`.
 
 
 ```r
@@ -115,7 +123,7 @@ str_sub(s, start = 4) # pegar do quarto até o último caractere
 ## Error in str_sub(s, start = 4): could not find function "str_sub"
 ```
 
-Também é possível obter apenas os números:
+Também é possível obter apenas os números.
 
 
 ```r
@@ -145,11 +153,11 @@ str_sub(s, 3, 4)
 
 ### str_to_upper, str_to_lower, str_to_title
 
-Essas funções servem para modificar a caixa das letras. Por exemplo:
+Essas funções servem para modificar a caixa das letras. Veja alguns exemplos:
 
 
 ```r
-s <- "Olá, tudo bem?"
+s <- "Somos a curso-r"
 str_to_lower(s)
 ## Error in str_to_lower(s): could not find function "str_to_lower"
 str_to_upper(s)
@@ -158,37 +166,44 @@ str_to_title(s)
 ## Error in str_to_title(s): could not find function "str_to_title"
 ```
 
-Essas são as funções mais simples do pacote `stringr` e não exigem nenhum conhecimento de regex. Note que nenhuma delas possui o parâmetro `pattern`. Você verá como especificar esse parâmetros nas próximas sessões.
+Essas são as funções mais simples do pacote `stringr` e não exigem nenhum conhecimento de **expressões regulares**. Note que nenhuma delas possui o parâmetro `pattern`. Você verá como especificar esse parâmetro nas próximas seções.
+
+
+
 
 
 
 ## Expressões Regulares
 
-Trabalhar com textos exige um certo conhecimento de expressões regulares (*regex*). [Expressões regulares](https://pt.wikipedia.org/wiki/Express%C3%A3o_regular) permitem identificar conjuntos de caracteres, palavras e outros padrões por meio de uma sintaxe concisa. 
+Trabalhar com textos exige um certo conhecimento de [expressões regulares](https://pt.wikipedia.org/wiki/Express%C3%A3o_regular). As expressões regulares --- ou simplesmente **regex** --- permitem identificar conjuntos de caracteres, palavras e outros padrões por meio de uma sintaxe concisa. 
 
 O `stringr` utiliza regex da forma descrita [neste documento](http://www.gagolewski.com/software/stringi/manual/?manpage=stringi-search-regex). A própria [definição](https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html) de regex do R é um ótimo manual.
 
-Vamos estudar expressões regulares por meio de exemplos e da função `str_detect()`. Ela retorna `TRUE` se uma string atende a uma expressão regular e `FALSE` caso contrário.
-
-Por exemplo:
+Vamos estudar expressões regulares por meio de exemplos e da função `str_detect()`. Ela retorna `TRUE` se uma *string* atende a uma expressão regular e `FALSE` caso contrário. Por exemplo:
 
 
 ```r
-library(stringr)
 str_detect("sao paulo", pattern = "paulo$")
 ## [1] TRUE
 str_detect("sao paulo sp", pattern = "paulo$")
 ## [1] FALSE
 ```
 
-A regex/pattern "paulo\$" indica que o texto deve ser terminado em "paulo". Existem diversos de caracteres auxiliares que vão auxiliar na manipulação dos textos, assim como o "\$". Importante: o valor passado para o argumento `pattern` de qualquer função do pacote `stringr` será entendido como uma regex.
+A regex/pattern "paulo\$" indica que o texto deve ser terminado em "paulo". Existem diversos caracteres auxiliares que vão auxiliar na manipulação dos textos, assim como o "\$". Importante: o valor passado para o argumento `pattern` de qualquer função do pacote `stringr` será entendido como uma regex.
 
-A tabela abaixo mostra a aplicação de seis `regex` em seis strings distintas.
+A tabela abaixo mostra a aplicação de cinco regex em seis *strings* distintas.
+
+- '^ban' reconhece apenas o que começa exatamente com "ban".
+- 'b ?an' reconhece tudo que tenha "ban", com ou sem espaço entre o "b" e o "a".
+- 'ban' reconhece tudo que tenha "ban", mas não ignora case.
+- BAN' reconhece tudo que tenha "BAN", mas não ignora case.
+- 'ban$' reconhece apenas o que termina exatamente em "ban"
 
 
 
 
-|testes          |^ban  |b ?an |ban   |BAN   |ban$  |
+
+|strings         |^ban  |b ?an |ban   |BAN   |ban$  |
 |:---------------|:-----|:-----|:-----|:-----|:-----|
 |abandonado      |FALSE |TRUE  |TRUE  |FALSE |FALSE |
 |ban             |TRUE  |TRUE  |TRUE  |FALSE |TRUE  |
@@ -221,22 +236,22 @@ Colocando caracteres dentro de `[]`, reconhecemos quaisquer caracteres desse con
 ### Miscelânea
 
 - Use `abjutils::rm_accent()` para retirar os acentos de um texto.
-- Use `|` para opções, por exemplo `desfavor|desprov` reconhece tanto "desfavorável" quanto "desprovido"
-- `\n` pula linha, `\f` é final da página, `\t` é tab. Use `\` para transformar caracteres especiais em literais.
-- `tolower()` e `toupper()` para mudar o case de uma string. 
+- Use `|` para opções, por exemplo, `desfavor|desprov` reconhece tanto "desfavorável" quanto "desprovido"
+- O código `\n` pula linha, `\f` é final da página, `\t` é tab. Use `\` para transformar caracteres especiais em literais.
+- Use as funções `tolower()` e `toupper()` para mudar o case de uma *string*. 
 
 A lista de possibilidades com expressões regulares é extensa. 
-Um bom lugar para testar o funcionamento de expressões regulares é o [regex101](https://regex101.com/).
+Um bom lugar para testar o funcionamento das regex é o [regex101](https://regex101.com/).
 
 
 
 
 ## Funções avançadas
 
-Agora que já vimos as funções básicas do `stringr` e aprendemos um pouco de regex, vamos às funções mais avançadas. Basicamante, essas funções buscarão `patterns` emum vetor de strings e farão alguma coisa quando encontrá-lo.
+Agora que já vimos as funções básicas do `stringr` e aprendemos um pouco de regex, vamos às funções mais avançadas. Basicamente, essas funções buscarão `patterns` em um vetor de *strings* e farão alguma coisa quando encontrá-lo.
 
 Como já vimos na sessão sobre regex, a função mais simples que possui o argumento
-`pattern` é a `str_detect`.
+`pattern=` é a `str_detect()`.
 
 ### str_detect()` 
 
@@ -257,22 +272,43 @@ Substituem um padrão (ou todos) encontrado para um outro padrão.
 
 
 ```r
-frutas <- c("uma maçã", "duas pêras", "três bananas")
-str_replace(frutas, "[aeiou]", "-") # substitui a primeira vogal de cada string por "-"
-## [1] "-ma maçã"     "d-as pêras"   "três b-nanas"
-str_replace_all(frutas, "[aeiou]", "-") # substitui todas as vogais por "-"
-## [1] "-m- m-çã"     "d--s pêr-s"   "três b-n-n-s"
+titulos <- c("o arqueiro", "o andarilho", "o herege")
 
-yyyy <- "yyyyy yyyyy ll zz"
-str_replace(yyyy, 'y+', 'x') # substitui o primeiro y ou y's por x
-## [1] "x yyyyy ll zz"
-str_replace_all(yyyy, 'y+', 'x') # substitui todos os y ou y's por somente um x
-## [1] "x x ll zz"
-str_replace_all(yyyy, 'y', 'x') # substitui y por x
-## [1] "xxxxx xxxxx ll zz"
+# remove a primeira vogal de cada string
+str_replace(titulos, "[aeiou]", "") 
+## [1] " arqueiro"  " andarilho" " herege"
 
-str_replace_all('string     com    muitos espaços', ' +', ' ') # tirar espaços extras
-## [1] "string com muitos espaços"
+# substitui todas as vogais por "-"
+str_replace_all(titulos, "[aeiou]", "-") 
+## [1] "- -rq---r-"  "- -nd-r-lh-" "- h-r-g-"
+
+s <- "--    ffffWda, --- unWvers--    e    tud-  maWs"
+
+# substitui o primeiro f (ou f"s) por "v"
+s <- str_replace(s, "f+", "v")
+s
+## [1] "--    vWda, --- unWvers--    e    tud-  maWs"
+
+# substitui o primeiro hífen (ou hífens) por "A"
+s <- str_replace(s, "-+", "A")
+s
+## [1] "A    vWda, --- unWvers--    e    tud-  maWs"
+
+# substitui todos os hífens (um ou mais) por somente "o"
+s <- str_replace_all(s, "-+", "o") 
+s
+## [1] "A    vWda, o unWverso    e    tudo  maWs"
+
+# substitui "W" por "i"
+s <- str_replace_all(s, "W", "i") 
+s
+## [1] "A    vida, o universo    e    tudo  mais"
+
+# tirar espaços extras
+
+s <- str_replace_all(s, " +", " ") 
+s
+## [1] "A vida, o universo e tudo mais"
 ```
 
 Muitas vezes queremos remover alguns caracteres especiais de um texto, mas esses 
@@ -280,8 +316,8 @@ caracteres fazem parte de comandos de regex, por exemplo:
 
 
 ```r
-string <- "1 + 2 + 5"
-str_replace_all(string, "+", "-")
+s <- "1 + 2 + 5"
+str_replace_all(s, "+", "-")
 ## Error in stri_replace_all_regex(string, pattern, fix_replacement(replacement), : Syntax error in regexp pattern. (U_REGEX_RULE_SYNTAX)
 ```
 
@@ -291,22 +327,21 @@ resultado esperado.
 
 
 ```r
-str_replace_all(string, " + ", " - ")
+str_replace_all(s, " + ", " - ")
 ## [1] "1 + 2 + 5"
 ```
 
-Nesse caso, use a função `fixed` para indicar para o `stringr` que você não deseja
-que o parâmetro seja reconhecido como uma regex.
+Nesse caso, use a função `fixed()` para indicar que o parâmetro não é uma regex.
 
 
 ```r
-str_replace_all(string, fixed("+"), "-")
+str_replace_all(s, fixed("+"), "-")
 ## [1] "1 - 2 - 5"
 ```
 
 ### str_extract() e str_extract_all()
 
-Extraem padrões de uma string. Por exemplo:
+As funções `str_extract()` e `str_extract_all()` extraem padrões de uma *string*. Por exemplo:
 
 
 ```r
@@ -315,6 +350,7 @@ r_core_group <- c(
   'Robert Gentleman', 'Kurt Hornik', 'Ross Ihaka', 'Tomas Kalibera',
   'Michael Lawrence', 'Friedrich Leisch', 'Uwe Ligges', '...'
 )
+
 sobrenomes <- str_extract(r_core_group, '[:alpha:]+$')
 sobrenomes
 ##  [1] "Bates"     "Chambers"  "Dalgaard"  "Gentleman" "Hornik"   
@@ -324,15 +360,16 @@ sobrenomes
 
 ### str_match() e str_match_all() 
 
-Extrai pedaços da string identificados pela regex. Caso queira extrair 
-somente a parte identificada, use parênteses.
+As funções `str_match()` e `str_match_all()` extraem pedaços da *string* identificados pela regex. Caso queira extrair somente a parte identificada, use parênteses.
 
 
 ```r
 # Exemplo de pergunta SOPt: http://pt.stackoverflow.com/q/150024/6036
+
 presidentes <- c("da Fonseca, DeodoroDeodoro da Fonseca", 
 "Peixoto, FlorianoFloriano Peixoto", "de Morais, PrudentePrudente de Morais", 
 "Sales, CamposCampos Sales")
+
 nomes_presidentes <- str_match(presidentes, '(.*), ([a-zA-Z]{1,})[A-Z]{1}')
 nomes_presidentes
 ##      [,1]                   [,2]         [,3]      
@@ -347,11 +384,12 @@ str_c(nomes_presidentes[,3], nomes_presidentes[,2], sep = ' ')
 
 ### str_split() e str_split_fixed()
 
-Separa uma string em várias de acordo com um separador.
+Essas funções separam uma *string* em várias de acordo com um separador.
 
 
 ```r
 string <- 'Durante um longo período de tempo o "R" foi escrito "P" como no alfabeto cirílico. O seu nome no alfabeto fenício era "rech". Seu significado era o de uma cabeça, representada pela adaptação do hieróglifo egípcio de uma cabeça. Transformou-se no "rô" dos gregos. Os romanos modificaram o rô acrescentando um pequeno traço para diferenciá-lo do no nosso P.'
+
 str_split(string, fixed('.'))
 ## [[1]]
 ## [1] "Durante um longo período de tempo o \"R\" foi escrito \"P\" como no alfabeto cirílico"                
@@ -377,7 +415,7 @@ str_split_fixed(string, fixed('.'), 3)
 
 ### str_subset() 
 
-Retorna somente as strings compatíveis com a regex.
+A função `str_subset()` retorna somente as strings compatíveis com a regex.
 
 
 ```r
@@ -386,7 +424,7 @@ str_subset(frases, 'd[eo]')
 ## [1] "a roupa do rei" "de roma"
 ```
 
-É o mesmo que fazer o subset do R e a função `str_detect`.
+É o mesmo que fazer subset usando a função `str_detect`.
 
 
 ```r
