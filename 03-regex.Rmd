@@ -1,49 +1,58 @@
 ---
 title: "Regex"
+author: "Daniel Falbel, William Amorim"
 ---
+
+```{r, echo = FALSE}
+library(stringr)
+```
+
 
 ## Expressões Regulares
 
-Trabalhar com textos exige um certo conhecimento de expressões regulares (*regex*). [Expressões regulares](https://pt.wikipedia.org/wiki/Express%C3%A3o_regular) permitem identificar conjuntos de caracteres, palavras e outros padrões por meio de uma sintaxe concisa. 
+Trabalhar com textos exige um certo conhecimento de [expressões regulares](https://pt.wikipedia.org/wiki/Express%C3%A3o_regular). As expressões regulares --- ou simplesmente **regex** --- permitem identificar conjuntos de caracteres, palavras e outros padrões por meio de uma sintaxe concisa. 
 
 O `stringr` utiliza regex da forma descrita [neste documento](http://www.gagolewski.com/software/stringi/manual/?manpage=stringi-search-regex). A própria [definição](https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html) de regex do R é um ótimo manual.
 
-Vamos estudar expressões regulares por meio de exemplos e da função `str_detect()`. Ela retorna `TRUE` se uma string atende a uma expressão regular e `FALSE` caso contrário.
-
-Por exemplo:
+Vamos estudar expressões regulares por meio de exemplos e da função `str_detect()`. Ela retorna `TRUE` se uma *string* atende a uma expressão regular e `FALSE` caso contrário. Por exemplo:
 
 ```{r}
-library(stringr)
 str_detect("sao paulo", pattern = "paulo$")
 str_detect("sao paulo sp", pattern = "paulo$")
 ```
 
-A regex/pattern "paulo\$" indica que o texto deve ser terminado em "paulo". Existem diversos de caracteres auxiliares que vão auxiliar na manipulação dos textos, assim como o "\$". Importante: o valor passado para o argumento `pattern` de qualquer função do pacote `stringr` será entendido como uma regex.
+A regex/pattern "paulo\$" indica que o texto deve ser terminado em "paulo". Existem diversos caracteres auxiliares que vão auxiliar na manipulação dos textos, assim como o "\$". Importante: o valor passado para o argumento `pattern` de qualquer função do pacote `stringr` será entendido como uma regex.
 
-A tabela abaixo mostra a aplicação de seis `regex` em seis strings distintas.
+A tabela abaixo mostra a aplicação de cinco regex em seis *strings* distintas.
+
+- '^ban' reconhece apenas o que começa exatamente com "ban".
+- 'b ?an' reconhece tudo que tenha "ban", com ou sem espaço entre o "b" e o "a".
+- 'ban' reconhece tudo que tenha "ban", mas não ignora case.
+- BAN' reconhece tudo que tenha "BAN", mas não ignora case.
+- 'ban$' reconhece apenas o que termina exatamente em "ban"
 
 ```{r, message=FALSE, warning=FALSE, include=FALSE}
-testes <- c('ban', 'banana', 'abandonado', 'pranab anderson', 'BANANA', 
+s <- c('ban', 'banana', 'abandonado', 'pranab anderson', 'BANANA', 
             'ele levou ban')
 
 expressoes <- list(
   'ban', # reconhece tudo que tenha "ban", mas não ignora case
   'BAN', # reconhece tudo que tenha "BAN", mas não ignora case
-  regex('ban', ignore_case = TRUE), # reconhece tudo que tenha "ban", ignorando case
   'ban$', # reconhece apenas o que termina exatamente em "ban"
   '^ban', # reconhece apenas o que começa exatamente com "ban"
   'b ?an' # reconhece tudo que tenha "ban", com ou sem espaço entre o "b" e o "a"
 )
 ```
 
+
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(purrr)
 library(dplyr)
 library(tidyr)
-list(testes = testes, expressoes = expressoes) %>%
+list(strings = s, expressoes = expressoes) %>%
   cross_d() %>%
   distinct() %>%
-  mutate(detect = str_detect(testes, expressoes)) %>%
+  mutate(detect = str_detect(s, expressoes)) %>%
   spread(expressoes, detect) %>%
   knitr::kable()
 ```
@@ -72,10 +81,10 @@ Colocando caracteres dentro de `[]`, reconhecemos quaisquer caracteres desse con
 ### Miscelânea
 
 - Use `abjutils::rm_accent()` para retirar os acentos de um texto.
-- Use `|` para opções, por exemplo `desfavor|desprov` reconhece tanto "desfavorável" quanto "desprovido"
-- `\n` pula linha, `\f` é final da página, `\t` é tab. Use `\` para transformar caracteres especiais em literais.
-- `tolower()` e `toupper()` para mudar o case de uma string. 
+- Use `|` para opções, por exemplo, `desfavor|desprov` reconhece tanto "desfavorável" quanto "desprovido"
+- O código `\n` pula linha, `\f` é final da página, `\t` é tab. Use `\` para transformar caracteres especiais em literais.
+- Use as funções `tolower()` e `toupper()` para mudar o case de uma *string*. 
 
 A lista de possibilidades com expressões regulares é extensa. 
-Um bom lugar para testar o funcionamento de expressões regulares é o [regex101](https://regex101.com/).
+Um bom lugar para testar o funcionamento das regex é o [regex101](https://regex101.com/).
 

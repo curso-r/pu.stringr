@@ -1,13 +1,14 @@
 ---
 title: "Avançado"
+author: "Daniel Falbel, William Amorim"
 ---
 
 ## Funções avançadas
 
-Agora que já vimos as funções básicas do `stringr` e aprendemos um pouco de regex, vamos às funções mais avançadas. Basicamante, essas funções buscarão `patterns` emum vetor de strings e farão alguma coisa quando encontrá-lo.
+Agora que já vimos as funções básicas do `stringr` e aprendemos um pouco de regex, vamos às funções mais avançadas. Basicamente, essas funções buscarão `patterns` em um vetor de *strings* e farão alguma coisa quando encontrá-lo.
 
 Como já vimos na sessão sobre regex, a função mais simples que possui o argumento
-`pattern` é a `str_detect`.
+`pattern=` é a `str_detect()`.
 
 ### str_detect()` 
 
@@ -24,24 +25,44 @@ str_detect("sao paulo sp", pattern = "paulo$")
 Substituem um padrão (ou todos) encontrado para um outro padrão.
 
 ```{r}
-frutas <- c("uma maçã", "duas pêras", "três bananas")
-str_replace(frutas, "[aeiou]", "-") # substitui a primeira vogal de cada string por "-"
-str_replace_all(frutas, "[aeiou]", "-") # substitui todas as vogais por "-"
+titulos <- c("o arqueiro", "o andarilho", "o herege")
 
-yyyy <- "yyyyy yyyyy ll zz"
-str_replace(yyyy, 'y+', 'x') # substitui o primeiro y ou y's por x
-str_replace_all(yyyy, 'y+', 'x') # substitui todos os y ou y's por somente um x
-str_replace_all(yyyy, 'y', 'x') # substitui y por x
+# remove a primeira vogal de cada string
+str_replace(titulos, "[aeiou]", "") 
 
-str_replace_all('string     com    muitos espaços', ' +', ' ') # tirar espaços extras
+# substitui todas as vogais por "-"
+str_replace_all(titulos, "[aeiou]", "-") 
+
+s <- "--    ffffWda, --- unWvers--    e    tud-  maWs"
+
+# substitui o primeiro f (ou f"s) por "v"
+s <- str_replace(s, "f+", "v")
+s
+
+# substitui o primeiro hífen (ou hífens) por "A"
+s <- str_replace(s, "-+", "A")
+s
+
+# substitui todos os hífens (um ou mais) por somente "o"
+s <- str_replace_all(s, "-+", "o") 
+s
+
+# substitui "W" por "i"
+s <- str_replace_all(s, "W", "i") 
+s
+
+# tirar espaços extras
+
+s <- str_replace_all(s, " +", " ") 
+s
 ```
 
 Muitas vezes queremos remover alguns caracteres especiais de um texto, mas esses 
 caracteres fazem parte de comandos de regex, por exemplo:
 
 ```{r, error=TRUE}
-string <- "1 + 2 + 5"
-str_replace_all(string, "+", "-")
+s <- "1 + 2 + 5"
+str_replace_all(s, "+", "-")
 ```
 
 Essa forma retorna um erro, pois a função tenta montar uma regex. Você poderia 
@@ -49,19 +70,18 @@ tentar de outras formas, que não retornariam erro, mas também não retornariam
 resultado esperado.
 
 ```{r}
-str_replace_all(string, " + ", " - ")
+str_replace_all(s, " + ", " - ")
 ```
 
-Nesse caso, use a função `fixed` para indicar para o `stringr` que você não deseja
-que o parâmetro seja reconhecido como uma regex.
+Nesse caso, use a função `fixed()` para indicar que o parâmetro não é uma regex.
 
 ```{r}
-str_replace_all(string, fixed("+"), "-")
+str_replace_all(s, fixed("+"), "-")
 ```
 
 ### str_extract() e str_extract_all()
 
-Extraem padrões de uma string. Por exemplo:
+As funções `str_extract()` e `str_extract_all()` extraem padrões de uma *string*. Por exemplo:
 
 ```{r}
 r_core_group <- c(
@@ -69,20 +89,22 @@ r_core_group <- c(
   'Robert Gentleman', 'Kurt Hornik', 'Ross Ihaka', 'Tomas Kalibera',
   'Michael Lawrence', 'Friedrich Leisch', 'Uwe Ligges', '...'
 )
+
 sobrenomes <- str_extract(r_core_group, '[:alpha:]+$')
 sobrenomes
 ```
 
 ### str_match() e str_match_all() 
 
-Extrai pedaços da string identificados pela regex. Caso queira extrair 
-somente a parte identificada, use parênteses.
+As funções `str_match()` e `str_match_all()` extraem pedaços da *string* identificados pela regex. Caso queira extrair somente a parte identificada, use parênteses.
 
 ```{r}
 # Exemplo de pergunta SOPt: http://pt.stackoverflow.com/q/150024/6036
+
 presidentes <- c("da Fonseca, DeodoroDeodoro da Fonseca", 
 "Peixoto, FlorianoFloriano Peixoto", "de Morais, PrudentePrudente de Morais", 
 "Sales, CamposCampos Sales")
+
 nomes_presidentes <- str_match(presidentes, '(.*), ([a-zA-Z]{1,})[A-Z]{1}')
 nomes_presidentes
 str_c(nomes_presidentes[,3], nomes_presidentes[,2], sep = ' ')
@@ -90,10 +112,11 @@ str_c(nomes_presidentes[,3], nomes_presidentes[,2], sep = ' ')
 
 ### str_split() e str_split_fixed()
 
-Separa uma string em várias de acordo com um separador.
+Essas funções separam uma *string* em várias de acordo com um separador.
 
 ```{r}
 string <- 'Durante um longo período de tempo o "R" foi escrito "P" como no alfabeto cirílico. O seu nome no alfabeto fenício era "rech". Seu significado era o de uma cabeça, representada pela adaptação do hieróglifo egípcio de uma cabeça. Transformou-se no "rô" dos gregos. Os romanos modificaram o rô acrescentando um pequeno traço para diferenciá-lo do no nosso P.'
+
 str_split(string, fixed('.'))
 ```
 
@@ -105,14 +128,14 @@ str_split_fixed(string, fixed('.'), 3)
 
 ### str_subset() 
 
-Retorna somente as strings compatíveis com a regex.
+A função `str_subset()` retorna somente as strings compatíveis com a regex.
 
 ```{r}
 frases <- c('a roupa do rei', 'de roma', 'o rato roeu')
 str_subset(frases, 'd[eo]')
 ```
 
-É o mesmo que fazer o subset do R e a função `str_detect`.
+É o mesmo que fazer subset usando a função `str_detect`.
 
 ```{r}
 frases[str_detect(frases, "d[eo]")]
