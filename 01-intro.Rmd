@@ -34,3 +34,5 @@ Inicialmente, o `stringr` era um *wrapper* de funções do `base`. Depois disso,
 surgiu um novo pacote `stringi`, com sintaxe similar ao `stringr`, mas funcionando como *wrapper* da biblioteca ICU. Wickham gostou tanto do pacote `stringi` 
 que decidiu reescrever o `stringr` como um *wrapper* do `stringi`. 
 Veja [essa página](https://github.com/tidyverse/stringr/blob/master/NEWS.md) para detalhes.
+
+--------------------------------------------------------------------------------

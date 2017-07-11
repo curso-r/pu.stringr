@@ -1,12 +1,85 @@
 ---
 title: "Exercícios"
-author: "Daniel Falbel, William Amorim"
+author: "William Amorim"
 ---
 
-## Exercícios
+```{r, message=FALSE, warning=FALSE, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE, 
+  out.width = "60%", out.height = "60%",
+  fig.retina = 2
+)
+```
+
+## Respostas
+
+<div class='admonition note'>
+<p class='admonition-title'>
+Nota
+</p>
+<p>
+Não há apenas uma maneira de resolver os exercícios. Você pode encontrar soluções diferentes das nossas, algumas vezes mais eficientes, outras vezes menos. Quando estiver fazendo suas análises, tente buscar o equilíbrio entre eficiência e praticidade. Economizar 1 hora com a execução do código pode não valer a pena se você demorou 2 horas a mais para programá-lo.
+</p>
+</div>
+
+--------------------------------------------------------------------------------
 
 **1.** O CPF é um número de 11 dígitos, por exemplo: 54491651884. No entanto para facilitar a visualização costumamos mostrá-lo com separadores a cada 3 casas: 544.916.518-84. Crie uma função que transforma um número de 11 dígitos em uma string com as separações, como um CPF.
 
+```{r, eval = FALSE}
+
+# Sem regex
+
+formata_CPF <- function(num) {
+  
+  if(str_count(num) != 11) {
+    stop("Número inválido!")
+  }
+  
+  # Concatemos cada parte do número, interpolando
+  # com os pontos e o traço.
+  
+  s <- str_c(
+    str_sub(num, start = 1, end = 3),
+    ".",
+    str_sub(num, start = 4, end = 6),
+    ".",
+    str_sub(num, start = 7, end = 9),
+    "-",
+    str_sub(num, start = 10, end = 11)
+  )
+  
+}
+
+# Com regex
+
+formata_CPF <- function(num) {
+  
+  if(str_count(num) != 11) {
+    stop("Número inválido!")
+  }
+  
+  str_replace(string = num, 
+              pattern = "([0-9]{3})([0-9]{3})([0-9]{3})", 
+              replacement = "\\1.\\2.\\3-")
+}
+
+```
+
+A função `str_replace()` faz o seguinte:
+
+- O `pattern=` procurará um padrão de 9 números:
+    - O primeiro `([0-9]{3})` pega os três primeiros números.
+    - O segundo `([0-9]{3})` pega os três próximos números (quarto ao sexto).
+    - O terceiro `([0-9]{3})` pega os três números seguintes (sétimo ao nono).
+- O `replacement=` substituirá esses 9 números pela *string* formada por:
+    - `\\1`, a expressão dada pelo primeiro parêntese do `pattern=`, isto é, os três primeiros números.
+    - `.`, o primeiro ponto.
+    - `\\2`,  a expressão dada pelo segundo parêntese do `pattern=`, isto é, os três próximos números (quarto ao sexto).
+    - `.`, o segundo ponto.
+    - `\\3`, a expressão dada pelo terceiro parêntese do `pattern=`, isto é, os três números seguintes (sétimo ao nono).
+    - `-`, o traço.
+    
 --------------------------------------------------------------------------------
 
 **2.** Transforme o vetor de *strings* abaixo em `"03 - Alto" "02 - Médio" "03 - Baixo"`.

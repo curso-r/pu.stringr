@@ -3,10 +3,17 @@ title: "Regex"
 author: "Daniel Falbel, William Amorim"
 ---
 
+```{r, message=FALSE, warning=FALSE, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE, 
+  out.width = "60%", out.height = "60%",
+  fig.retina = 2
+)
+```
+
 ```{r, echo = FALSE}
 library(stringr)
 ```
-
 
 ## Expressões Regulares
 

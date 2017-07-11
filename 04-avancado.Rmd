@@ -3,6 +3,14 @@ title: "Avançado"
 author: "Daniel Falbel, William Amorim"
 ---
 
+```{r, message=FALSE, warning=FALSE, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE, 
+  out.width = "60%", out.height = "60%",
+  fig.retina = 2
+)
+```
+
 ## Funções avançadas
 
 Agora que já vimos as funções básicas do `stringr` e aprendemos um pouco de regex, vamos às funções mais avançadas. Basicamente, essas funções buscarão `patterns` em um vetor de *strings* e farão alguma coisa quando encontrá-lo.
@@ -141,3 +149,4 @@ str_subset(frases, 'd[eo]')
 frases[str_detect(frases, "d[eo]")]
 ```
 
+--------------------------------------------------------------------------------
