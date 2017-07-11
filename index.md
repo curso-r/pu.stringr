@@ -1,6 +1,6 @@
 ---
 title: Stringr
-date: '2017-07-08'
+date: '2017-07-11'
 ---
 
 
@@ -30,6 +30,8 @@ Inicialmente, o `stringr` era um *wrapper* de funções do `base`. Depois disso,
 surgiu um novo pacote `stringi`, com sintaxe similar ao `stringr`, mas funcionando como *wrapper* da biblioteca ICU. Wickham gostou tanto do pacote `stringi` 
 que decidiu reescrever o `stringr` como um *wrapper* do `stringi`. 
 Veja [essa página](https://github.com/tidyverse/stringr/blob/master/NEWS.md) para detalhes.
+
+--------------------------------------------------------------------------------
 
 
 
@@ -168,6 +170,9 @@ str_to_title(s)
 
 Essas são as funções mais simples do pacote `stringr` e não exigem nenhum conhecimento de **expressões regulares**. Note que nenhuma delas possui o parâmetro `pattern`. Você verá como especificar esse parâmetro nas próximas seções.
 
+--------------------------------------------------------------------------------
+
+
 
 
 
@@ -242,6 +247,8 @@ Colocando caracteres dentro de `[]`, reconhecemos quaisquer caracteres desse con
 
 A lista de possibilidades com expressões regulares é extensa. 
 Um bom lugar para testar o funcionamento das regex é o [regex101](https://regex101.com/).
+
+
 
 
 
@@ -432,50 +439,61 @@ frases[str_detect(frases, "d[eo]")]
 ## [1] "a roupa do rei" "de roma"
 ```
 
+--------------------------------------------------------------------------------
 
 
 
 ## Exercícios
 
-**1.** Faça uma regex que capture múltiplas versões da palavra 'casa'. Ela deve funcionar
-com as palavras 'Casa', 'CASA', 'CaSa', 'CAsa'. Teste-a usando a função `str_detect`.
+**1.** O CPF é um número de 11 dígitos, por exemplo: 54491651884. No entanto para facilitar a visualização costumamos mostrá-lo com separadores a cada 3 casas: 544.916.518-84. Crie uma função que transforma um número de 11 dígitos em uma string com as separações, como um CPF.
+
+--------------------------------------------------------------------------------
+
+**2.** Transforme o vetor de *strings* abaixo em `"03 - Alto" "02 - Médio" "03 - Baixo"`.
 
 
 ```r
-palavras <- c('Casa', 'CASA', 'CaSa', 'CAsa')
+s <- c('Alto', 'Médio', 'Baixo')
 ```
 
-**2.** Imagine que você possui a seguinte string que é a parte final de uma URL:
+--------------------------------------------------------------------------------
+
+**3.** Crie uma regex que capture múltiplas versões da palavra 'casa'. Ela deve funcionar com as palavras 'Casa', 'CASA', 'CaSa', 'CAsa'. Teste-a usando a função `str_detect()`.
+
+
+```r
+s <- c('Casa', 'CASA', 'CaSa', 'CAsa')
+```
+
+--------------------------------------------------------------------------------
+
+**4.** Imagine que a seguinte *string* é a parte final de uma URL.
 
 * `/ac/rio-branco/xpto-xyz-1-0-1fds2396-5`
 
-Você precisa transformá-la em 'AC - Rio Branco'. **Dica**: Use a função `str_split`.
+Transforme-a em "AC - Rio Branco" utilizando a função `str_split()`.
 
 
 ```r
 url <- c('/ac/rio-branco/xpto-xyz-1-0-1fds2396-5')
 ```
 
-**3.** Você possui o seguinte vetor de caracteres: `x <- c('Alto', 'Médio', 'Baixo')`. A partir desse vetor,
-crie um vetor com os valores `'03 - Alto', '02 - Médio' e '03 - Baixo'.
+--------------------------------------------------------------------------------
 
-**4.** Crie uma função que retorna `TRUE` quando a string é um [palíndromo](https://pt.wikipedia.org/wiki/Pal%C3%ADndromo) e `FALSO` caso não seja.
-*Palíndromo* é uma sequência que é lida da mesma forma tanto da direita pra esquerda quanto
-da esquerda para a direita. O nome 'Ana', por exemplo, é um palíndromo.
+**5.** Crie uma função que retorna `TRUE` quando a string é um [palíndromo](https://pt.wikipedia.org/wiki/Pal%C3%ADndromo) e `FALSO` caso não seja.
 
-**5.** De acordo com as regras da língua portuguesa, antes de “P” ou “B” devemos usar a letra “M”. Em outras palavras, com outras consoantes, usamos a letra “N”. Suponha que você tem o seguinte
-texto com erros gramaticais.
+--------------------------------------------------------------------------------
+
+**6.** De acordo com as regras da língua portuguesa, antes de “p” ou “b” devemos usar a letra “m”. Em outras palavras, com outras consoantes, usamos a letra “N”. Suponha que você tem o seguinte texto com erros gramaticais:
 
 
 ```r
-texto <- 'Nós chamamos os bonbeiros quando começou o incêndio.'
+texto <- 'Nós chamamos os bonbeiros quando começou o incêmdio.'
 ```
 
-Crie uma função para corrigí-lo. 
+Crie uma função para corrigi-lo. 
 
-**6.** O CPF é um número de 11 dígitos, por exemplo: 54491651884. No entanto para facilitar
-a visualização costumamos mostrá-lo com separadores a cada 3 casas: 544.916.518-84.
-Crie uma função que transforma um número de 11 dígitos em uma string com as separações, como um CPF.
+--------------------------------------------------------------------------------
 
 **7.** Considere o seguinte texto
 
@@ -486,18 +504,172 @@ txt <- "A função mais importante para leitura de dados no `lubridate` é a `ym
 
 Extraia todas as combinações da função `ymd`, sem repetições.
 
-**8.** Considere os textos abaixo
+--------------------------------------------------------------------------------
+
+**8.** Considere as frases abaixo
 
 
 ```r
-txts <- c(
-  'o produto é muito bom',
-  'o produto não é bom',
-  'o produto não é muito bom',
-  'o produto não é ruim',
-  'o produto não é não bom'
+s <- c(
+  'O produto é muito bom.',
+  'O produto não é bom.',
+  'O produto não é muito bom.',
+  'O produto não é ruim.',
+  'O produto não é não bom.'
 )
 ```
 
-Crie uma regra para identificar se o texto refere-se a um feedback positivo ou negativo sobre o produto (considera não bom = ruim e vice-versa). Retorne um vetor lógico que vale `TRUE` se o feedback é positivo e `FALSE` caso contrário.
+Crie uma regra para identificar se o texto refere-se a um feedback positivo ou negativo sobre o produto (considere não bom = ruim e não ruim = bom). Retorne um vetor lógico que vale `TRUE` se o feedback é positivo e `FALSE` caso contrário.
+
+--------------------------------------------------------------------------------
+
+
+
+
+
+## Respostas
+
+<div class='admonition note'>
+<p class='admonition-title'>
+Nota
+</p>
+<p>
+Não há apenas uma maneira de resolver os exercícios. Você pode encontrar soluções diferentes das nossas, algumas vezes mais eficientes, outras vezes menos. Quando estiver fazendo suas análises, tente buscar o equilíbrio entre eficiência e praticidade. Economizar 1 hora com a execução do código pode não valer a pena se você demorou 2 horas a mais para programá-lo.
+</p>
+</div>
+
+--------------------------------------------------------------------------------
+
+**1.** O CPF é um número de 11 dígitos, por exemplo: 54491651884. No entanto para facilitar a visualização costumamos mostrá-lo com separadores a cada 3 casas: 544.916.518-84. Crie uma função que transforma um número de 11 dígitos em uma string com as separações, como um CPF.
+
+
+```r
+
+# Sem regex
+
+formata_CPF <- function(num) {
+  
+  if(str_count(num) != 11) {
+    stop("Número inválido!")
+  }
+  
+  # Concatemos cada parte do número, interpolando
+  # com os pontos e o traço.
+  
+  s <- str_c(
+    str_sub(num, start = 1, end = 3),
+    ".",
+    str_sub(num, start = 4, end = 6),
+    ".",
+    str_sub(num, start = 7, end = 9),
+    "-",
+    str_sub(num, start = 10, end = 11)
+  )
+  
+}
+
+# Com regex
+
+formata_CPF <- function(num) {
+  
+  if(str_count(num) != 11) {
+    stop("Número inválido!")
+  }
+  
+  str_replace(string = num, 
+              pattern = "([0-9]{3})([0-9]{3})([0-9]{3})", 
+              replacement = "\\1.\\2.\\3-")
+}
+
+```
+
+A função `str_replace()` faz o seguinte:
+
+- O `pattern=` procurará um padrão de 9 números:
+    - O primeiro `([0-9]{3})` pega os três primeiros números.
+    - O segundo `([0-9]{3})` pega os três próximos números (quarto ao sexto).
+    - O terceiro `([0-9]{3})` pega os três números seguintes (sétimo ao nono).
+- O `replacement=` substituirá esses 9 números pela *string* formada por:
+    - `\\1`, a expressão dada pelo primeiro parêntese do `pattern=`, isto é, os três primeiros números.
+    - `.`, o primeiro ponto.
+    - `\\2`,  a expressão dada pelo segundo parêntese do `pattern=`, isto é, os três próximos números (quarto ao sexto).
+    - `.`, o segundo ponto.
+    - `\\3`, a expressão dada pelo terceiro parêntese do `pattern=`, isto é, os três números seguintes (sétimo ao nono).
+    - `-`, o traço.
+    
+--------------------------------------------------------------------------------
+
+**2.** Transforme o vetor de *strings* abaixo em `"03 - Alto" "02 - Médio" "03 - Baixo"`.
+
+
+```r
+s <- c('Alto', 'Médio', 'Baixo')
+```
+
+--------------------------------------------------------------------------------
+
+**3.** Crie uma regex que capture múltiplas versões da palavra 'casa'. Ela deve funcionar com as palavras 'Casa', 'CASA', 'CaSa', 'CAsa'. Teste-a usando a função `str_detect()`.
+
+
+```r
+s <- c('Casa', 'CASA', 'CaSa', 'CAsa')
+```
+
+--------------------------------------------------------------------------------
+
+**4.** Imagine que a seguinte *string* é a parte final de uma URL.
+
+* `/ac/rio-branco/xpto-xyz-1-0-1fds2396-5`
+
+Transforme-a em "AC - Rio Branco" utilizando a função `str_split()`.
+
+
+```r
+url <- c('/ac/rio-branco/xpto-xyz-1-0-1fds2396-5')
+```
+
+--------------------------------------------------------------------------------
+
+**5.** Crie uma função que retorna `TRUE` quando a string é um [palíndromo](https://pt.wikipedia.org/wiki/Pal%C3%ADndromo) e `FALSO` caso não seja.
+
+--------------------------------------------------------------------------------
+
+**6.** De acordo com as regras da língua portuguesa, antes de “p” ou “b” devemos usar a letra “m”. Em outras palavras, com outras consoantes, usamos a letra “N”. Suponha que você tem o seguinte texto com erros gramaticais:
+
+
+```r
+texto <- 'Nós chamamos os bonbeiros quando começou o incêmdio.'
+```
+
+Crie uma função para corrigi-lo. 
+
+--------------------------------------------------------------------------------
+
+**7.** Considere o seguinte texto
+
+
+```r
+txt <- "A função mais importante para leitura de dados no `lubridate` é a `ymd`. Essa função serve para ler qualquer data de uma `string` no formato `YYYY-MM-DD`. Essa função é útil pois funciona com qualquer separador entre os elementos da data e também porque temos uma função para cada formato (`mdy`, `dmy`, `dym`, `myd`, `ydm`)."
+```
+
+Extraia todas as combinações da função `ymd`, sem repetições.
+
+--------------------------------------------------------------------------------
+
+**8.** Considere as frases abaixo
+
+
+```r
+s <- c(
+  'O produto é muito bom.',
+  'O produto não é bom.',
+  'O produto não é muito bom.',
+  'O produto não é ruim.',
+  'O produto não é não bom.'
+)
+```
+
+Crie uma regra para identificar se o texto refere-se a um feedback positivo ou negativo sobre o produto (considere não bom = ruim e não ruim = bom). Retorne um vetor lógico que vale `TRUE` se o feedback é positivo e `FALSE` caso contrário.
+
+--------------------------------------------------------------------------------
 
