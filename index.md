@@ -1,6 +1,6 @@
 ---
 title: Stringr
-date: '2017-07-11'
+date: '2017-07-17'
 ---
 
 
@@ -241,7 +241,7 @@ Colocando caracteres dentro de `[]`, reconhecemos quaisquer caracteres desse con
 ### Miscelânea
 
 - Use `abjutils::rm_accent()` para retirar os acentos de um texto.
-- Use `|` para opções, por exemplo, `desfavor|desprov` reconhece tanto "desfavorável" quanto "desprovido"
+- Use `|` para opções. Por exemplo, `desfavor|desprov` reconhece tanto "desfavorável" quanto "desprovido"
 - O código `\n` pula linha, `\f` é final da página, `\t` é tab. Use `\` para transformar caracteres especiais em literais.
 - Use as funções `tolower()` e `toupper()` para mudar o case de uma *string*. 
 
@@ -449,7 +449,7 @@ frases[str_detect(frases, "d[eo]")]
 
 --------------------------------------------------------------------------------
 
-**2.** Transforme o vetor de *strings* abaixo em `"03 - Alto" "02 - Médio" "03 - Baixo"`.
+**2.** Transforme o vetor de *strings* abaixo em `"01 - Alto" "02 - Médio" "03 - Baixo"`.
 
 
 ```r
@@ -525,6 +525,14 @@ Crie uma regra para identificar se o texto refere-se a um feedback positivo ou n
 
 
 
+
+
+
+```r
+library(tidyverse)
+## Error in library(tidyverse): there is no package called 'tidyverse'
+library(stringr)
+```
 
 
 ## Respostas
@@ -599,13 +607,23 @@ A função `str_replace()` faz o seguinte:
     
 --------------------------------------------------------------------------------
 
-**2.** Transforme o vetor de *strings* abaixo em `"03 - Alto" "02 - Médio" "03 - Baixo"`.
+**2.** Transforme o vetor de *strings* abaixo em `"01 - Alto" "02 - Médio" "03 - Baixo"`.
 
 
 ```r
 s <- c('Alto', 'Médio', 'Baixo')
-```
 
+# Usando str_c()
+
+str_c("0", 1:length(s), " - ", s, sep = "")
+## [1] "01 - Alto"  "02 - Médio" "03 - Baixo"
+
+# Usando o pacote glue
+
+glue("0{1:length(s)} - {s}")
+## Error in glue("0{1:length(s)} - {s}"): could not find function "glue"
+```
+Para mais informações sobre o pacote `glue`, confira [este post](http://curso-r.com/blog/2017/04/17/2017-04-08-glue/).
 --------------------------------------------------------------------------------
 
 **3.** Crie uma regex que capture múltiplas versões da palavra 'casa'. Ela deve funcionar com as palavras 'Casa', 'CASA', 'CaSa', 'CAsa'. Teste-a usando a função `str_detect()`.
@@ -613,6 +631,11 @@ s <- c('Alto', 'Médio', 'Baixo')
 
 ```r
 s <- c('Casa', 'CASA', 'CaSa', 'CAsa')
+
+str_detect(s, "[CcAaSsAa]")
+## [1] TRUE TRUE TRUE TRUE
+str_detect(s, "[Cc][Aa][Ss][Aa]")
+## [1] TRUE TRUE TRUE TRUE
 ```
 
 --------------------------------------------------------------------------------
@@ -626,11 +649,69 @@ Transforme-a em "AC - Rio Branco" utilizando a função `str_split()`.
 
 ```r
 url <- c('/ac/rio-branco/xpto-xyz-1-0-1fds2396-5')
+
+UF <- url %>% 
+  str_sub(start = 2) %>% 
+  str_split("[/]", n = 2, simplify = TRUE) %>% 
+  .[1,1] %>% 
+  str_to_upper()
+
+cidade <- url %>% 
+  str_sub(start = 5) %>% 
+  str_split("[/]", n = 3, simplify = TRUE) %>% 
+  .[1,1] %>% 
+  str_replace("-", " ") %>% 
+  str_to_title()
+
+str_c(UF, " - ", cidade)
+## [1] "AC - Rio Branco"
 ```
 
 --------------------------------------------------------------------------------
 
 **5.** Crie uma função que retorna `TRUE` quando a string é um [palíndromo](https://pt.wikipedia.org/wiki/Pal%C3%ADndromo) e `FALSO` caso não seja.
+
+
+```r
+# Solução 1: usando a função rev() para inverter uma string fragmentada
+
+testa_palindromo <- function(s) {
+  
+  s %>%
+    str_split("", simplify = T) %>% 
+    rev %>% 
+    str_c(collapse = "") %>% 
+    str_detect(s)
+  
+}
+
+testa_palindromo("ana")
+## [1] TRUE
+testa_palindromo("bananas")
+## [1] FALSE
+testa_palindromo("socorrammesubinoonibusemmarrocos")
+## [1] TRUE
+
+
+# Solução 2: usando a função str_reverse() do pacote stringi,
+# que já inverte a string diretamente.
+
+testa_palindromo <- function(s) {
+  
+  s %>% 
+    stringi::stri_reverse() %>% 
+    str_detect(s)
+  
+}
+
+testa_palindromo("ana")
+## [1] TRUE
+testa_palindromo("bananas")
+## [1] FALSE
+testa_palindromo("socorrammesubinoonibusemmarrocos")
+## [1] TRUE
+```
+
 
 --------------------------------------------------------------------------------
 
@@ -638,10 +719,41 @@ url <- c('/ac/rio-branco/xpto-xyz-1-0-1fds2396-5')
 
 
 ```r
-texto <- 'Nós chamamos os bonbeiros quando começou o incêmdio.'
+s <- 'Nós chamamos os bonbeiros quando começou o incêmdio.'
 ```
 
-Crie uma função para corrigi-lo. 
+Crie uma função para corrigi-lo.
+
+
+```r
+# Função que funciona para o exemplo
+
+corrige_mn <- function(s) {
+  
+  s %>% 
+    str_replace("nb", "mb") %>% 
+    str_replace("md", "nd")
+  
+}
+
+corrige_mn(s)
+## [1] "Nós chamamos os bombeiros quando começou o incêndio."
+
+# Função que funciona no caso geral
+
+corrige_mn <- function(s) {
+  
+  s %>% 
+    str_replace_all("m([^aeioubp[[:space:]]+])", "n\\1") %>%  
+    str_replace_all("n([pb])", "m\\1")
+  
+}
+
+corrige_mn(s)
+## [1] "Nós chamamos os bombeiros quando começou o incêndio."
+```
+
+O padrão `[^aeioubp[[:space:]]+]` significa "tudo menos vogais, b, p ou espaços". O `\\1` devolve o padrão encontrado pelo primeiro parêntese do argumento `patern=`.
 
 --------------------------------------------------------------------------------
 
@@ -649,10 +761,19 @@ Crie uma função para corrigi-lo.
 
 
 ```r
-txt <- "A função mais importante para leitura de dados no `lubridate` é a `ymd`. Essa função serve para ler qualquer data de uma `string` no formato `YYYY-MM-DD`. Essa função é útil pois funciona com qualquer separador entre os elementos da data e também porque temos uma função para cada formato (`mdy`, `dmy`, `dym`, `myd`, `ydm`)."
+s <- "A função mais importante para leitura de dados no `lubridate` é a `ymd`. Essa função serve para ler qualquer data de uma `string` no formato `YYYY-MM-DD`. Essa função é útil pois funciona com qualquer separador entre os elementos da data e também porque temos uma função para cada formato (`ymd`, `mdy`, `dmy`, `dym`, `myd`, `ydm`)."
 ```
 
 Extraia todas as combinações da função `ymd`, sem repetições.
+
+
+```r
+str_extract_all(s, "[ymd]{3}") %>% 
+  as_vector() %>% 
+  unique
+## [1] "ymd" "mdy" "dmy" "dym" "myd" "ydm"
+```
+
 
 --------------------------------------------------------------------------------
 
@@ -661,15 +782,34 @@ Extraia todas as combinações da função `ymd`, sem repetições.
 
 ```r
 s <- c(
-  'O produto é muito bom.',
+  'O produto é bom.',
   'O produto não é bom.',
   'O produto não é muito bom.',
+  'O produto é muito bom',
   'O produto não é ruim.',
+  'O produto não é não ruim.',
   'O produto não é não bom.'
 )
 ```
 
-Crie uma regra para identificar se o texto refere-se a um feedback positivo ou negativo sobre o produto (considere não bom = ruim e não ruim = bom). Retorne um vetor lógico que vale `TRUE` se o feedback é positivo e `FALSE` caso contrário.
+Crie uma regra para identificar se o texto refere-se a um feedback positivo ou negativo sobre o produto (considere não bom = ruim e não ruim = bom). Retorne um vetor lógico que vale `TRUE` se o feedback for positivo e `FALSE` caso contrário.
+
+
+```r
+feedback <- function(s) {
+  
+  s %>% 
+    str_replace("não bom", "ruim") %>%
+    str_replace("não ruim", "bom") %>% 
+    str_replace("muito ", "") %>% 
+    str_detect("(.*) produto é bom|(.*) não é ruim")
+  
+}
+
+feedback(s)
+## [1]  TRUE FALSE FALSE  TRUE  TRUE FALSE  TRUE
+```
+
 
 --------------------------------------------------------------------------------
 
