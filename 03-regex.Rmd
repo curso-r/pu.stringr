@@ -88,7 +88,7 @@ Colocando caracteres dentro de `[]`, reconhecemos quaisquer caracteres desse con
 ### Miscelânea
 
 - Use `abjutils::rm_accent()` para retirar os acentos de um texto.
-- Use `|` para opções, por exemplo, `desfavor|desprov` reconhece tanto "desfavorável" quanto "desprovido"
+- Use `|` para opções. Por exemplo, `desfavor|desprov` reconhece tanto "desfavorável" quanto "desprovido"
 - O código `\n` pula linha, `\f` é final da página, `\t` é tab. Use `\` para transformar caracteres especiais em literais.
 - Use as funções `tolower()` e `toupper()` para mudar o case de uma *string*. 
 
