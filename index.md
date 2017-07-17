@@ -248,6 +248,7 @@ Colocando caracteres dentro de `[]`, reconhecemos quaisquer caracteres desse con
 A lista de possibilidades com expressões regulares é extensa. 
 Um bom lugar para testar o funcionamento das regex é o [regex101](https://regex101.com/).
 
+--------------------------------------------------------------------------------
 
 
 
@@ -528,10 +529,15 @@ Crie uma regra para identificar se o texto refere-se a um feedback positivo ou n
 
 
 
-```r
-library(tidyverse)
-## Error in library(tidyverse): there is no package called 'tidyverse'
-library(stringr)
+```
+## 
+## Attaching package: 'magrittr'
+## The following object is masked from 'package:tidyr':
+## 
+##     extract
+## The following object is masked from 'package:purrr':
+## 
+##     set_names
 ```
 
 
@@ -624,6 +630,7 @@ glue("0{1:length(s)} - {s}")
 ## Error in glue("0{1:length(s)} - {s}"): could not find function "glue"
 ```
 Para mais informações sobre o pacote `glue`, confira [este post](http://curso-r.com/blog/2017/04/17/2017-04-08-glue/).
+
 --------------------------------------------------------------------------------
 
 **3.** Crie uma regex que capture múltiplas versões da palavra 'casa'. Ela deve funcionar com as palavras 'Casa', 'CASA', 'CaSa', 'CAsa'. Teste-a usando a função `str_detect()`.
@@ -809,7 +816,6 @@ feedback <- function(s) {
 feedback(s)
 ## [1]  TRUE FALSE FALSE  TRUE  TRUE FALSE  TRUE
 ```
-
 
 --------------------------------------------------------------------------------
 
