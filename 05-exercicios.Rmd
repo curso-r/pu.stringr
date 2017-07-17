@@ -9,7 +9,7 @@ author: "Daniel Falbel, William Amorim"
 
 --------------------------------------------------------------------------------
 
-**2.** Transforme o vetor de *strings* abaixo em `"03 - Alto" "02 - Médio" "03 - Baixo"`.
+**2.** Transforme o vetor de *strings* abaixo em `"01 - Alto" "02 - Médio" "03 - Baixo"`.
 
 ```{r ex="exercicio_02", type="sample-code"}
 s <- c('Alto', 'Médio', 'Baixo')
