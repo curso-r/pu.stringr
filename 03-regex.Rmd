@@ -95,3 +95,4 @@ Colocando caracteres dentro de `[]`, reconhecemos quaisquer caracteres desse con
 A lista de possibilidades com expressões regulares é extensa. 
 Um bom lugar para testar o funcionamento das regex é o [regex101](https://regex101.com/).
 
+--------------------------------------------------------------------------------
