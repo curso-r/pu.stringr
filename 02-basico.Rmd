@@ -43,14 +43,25 @@ str_length(c("São Paulo", "Rio de Janeiro",
 Note que `str_length()` é diferente de `length()`. O primeiro retorna o número de caracteres e o segundo retorna o comprimento do objeto. Isso fica mais claro no seguinte exemplo:
 
 ```{r}
-s <- str_length(c("São Paulo", "Rio de Janeiro", 
-                  "Rio Grande do Norte", "Acre"))
+s <- c("São Paulo", "Rio de Janeiro", 
+       "Rio Grande do Norte", "Acre")
 
 str_length(s)
 length(s)
 ```
 
 A função `str_length()` retornou um vetor com o número de caracteres de cada elemento do vetor `s`, enquanto `length()` retornou o comprimento do vetor `s`.
+
+### str_to_upper, str_to_lower, str_to_title
+
+Essas funções servem para modificar a caixa das letras. Veja alguns exemplos:
+
+```{r}
+s <- "Somos a curso-r"
+str_to_lower(s)
+str_to_upper(s)
+str_to_title(s)
+```
 
 ### str_trim
 
@@ -65,8 +76,8 @@ as.factor(s)
 A função `str_trim()` ajuda removendo os espaços excedentes antes e depois da string.
 
 ```{r}
-s2 <- str_trim(s)
-as.factor(s2)
+string_aparada <- str_trim(s)
+as.factor(string_aparada)
 ```
 
 ### str_sub
@@ -104,17 +115,51 @@ s <- c("__SP__", "__MG__", "__RJ__")
 str_sub(s, 3, 4)
 ```
 
-### str_to_upper, str_to_lower, str_to_title
+### str_c
 
-Essas funções servem para modificar a caixa das letras. Veja alguns exemplos:
+Concatena *strings* em uma única string.
 
 ```{r}
-s <- "Somos a curso-r"
-str_to_lower(s)
-str_to_upper(s)
-str_to_title(s)
+
+string1 <- "O valor p é: "
+string2 <- 0.03
+
+str_c(string1, string2)     # Números serão transformados em caracteres.
+
+
+# Pode misturar objetos com strings definidas diretamente na função.
+
+string1 <- "Brigadeiro"
+string2 <- "bom"
+string3 <- "melhor"
+
+str_c(string1, " é a prova de que não existe nada tão ", string2,
+      " que não pode ficar ", string3, ".")
+
+# A função é vetorizada.
+
+string1 <- c("Brigadeiro", "A política brasileira")
+string2 <- c("bom", "ruim")
+string3 <- c("melhor", "pior")
+
+str_c(string1, " é a prova de que não existe nada tão ", string2,
+      " que não pode ficar ", string3, ".")
+
+# Pode ser usada para "criar código". 
+
+variaveis <- names(mtcars)
+variaveis
+
+variaveis_explicativas <- str_c(variaveis[-1], collapse = " + ")
+
+formula <- str_c(variaveis[1], " ~ ", variaveis_explicativas)
+formula
+as.formula
+
+# Modeloo linear (Off-topic)
+fit <- lm(formula, data = mtcars)
+summary(fit)
 ```
 
 Essas são as funções mais simples do pacote `stringr` e não exigem nenhum conhecimento de **expressões regulares**. Note que nenhuma delas possui o parâmetro `pattern`. Você verá como especificar esse parâmetro nas próximas seções.
-
 --------------------------------------------------------------------------------
