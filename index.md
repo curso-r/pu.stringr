@@ -1,6 +1,6 @@
 ---
 title: Stringr
-date: '2017-07-17'
+date: '2017-07-19'
 ---
 
 
@@ -73,17 +73,31 @@ Note que `str_length()` é diferente de `length()`. O primeiro retorna o número
 
 
 ```r
-s <- str_length(c("São Paulo", "Rio de Janeiro", 
-                  "Rio Grande do Norte", "Acre"))
-## Error in str_length(c("São Paulo", "Rio de Janeiro", "Rio Grande do Norte", : could not find function "str_length"
+s <- c("São Paulo", "Rio de Janeiro", 
+       "Rio Grande do Norte", "Acre")
 
 str_length(s)
 ## Error in str_length(s): could not find function "str_length"
 length(s)
-## Error in eval(expr, envir, enclos): object 's' not found
+## [1] 4
 ```
 
 A função `str_length()` retornou um vetor com o número de caracteres de cada elemento do vetor `s`, enquanto `length()` retornou o comprimento do vetor `s`.
+
+### str_to_upper, str_to_lower, str_to_title
+
+Essas funções servem para modificar a caixa das letras. Veja alguns exemplos:
+
+
+```r
+s <- "Somos a curso-r"
+str_to_lower(s)
+## Error in str_to_lower(s): could not find function "str_to_lower"
+str_to_upper(s)
+## Error in str_to_upper(s): could not find function "str_to_upper"
+str_to_title(s)
+## Error in str_to_title(s): could not find function "str_to_title"
+```
 
 ### str_trim
 
@@ -102,10 +116,10 @@ A função `str_trim()` ajuda removendo os espaços excedentes antes e depois da
 
 
 ```r
-s2 <- str_trim(s)
+string_aparada <- str_trim(s)
 ## Error in str_trim(s): could not find function "str_trim"
-as.factor(s2)
-## Error in is.factor(x): object 's2' not found
+as.factor(string_aparada)
+## Error in is.factor(x): object 'string_aparada' not found
 ```
 
 ### str_sub
@@ -153,23 +167,80 @@ str_sub(s, 3, 4)
 ## Error in str_sub(s, 3, 4): could not find function "str_sub"
 ```
 
-### str_to_upper, str_to_lower, str_to_title
+### str_c
 
-Essas funções servem para modificar a caixa das letras. Veja alguns exemplos:
+Concatena *strings* em uma única string.
 
 
 ```r
-s <- "Somos a curso-r"
-str_to_lower(s)
-## Error in str_to_lower(s): could not find function "str_to_lower"
-str_to_upper(s)
-## Error in str_to_upper(s): could not find function "str_to_upper"
-str_to_title(s)
-## Error in str_to_title(s): could not find function "str_to_title"
+
+string1 <- "O valor p é: "
+string2 <- 0.03
+
+str_c(string1, string2)     # Números serão transformados em caracteres.
+## Error in str_c(string1, string2): could not find function "str_c"
+
+
+# Pode misturar objetos com strings definidas diretamente na função.
+
+string1 <- "Brigadeiro"
+string2 <- "bom"
+string3 <- "melhor"
+
+str_c(string1, " é a prova de que não existe nada tão ", string2,
+      " que não pode ficar ", string3, ".")
+## Error in str_c(string1, " é a prova de que não existe nada tão ", string2, : could not find function "str_c"
+
+# A função é vetorizada.
+
+string1 <- c("Brigadeiro", "A política brasileira")
+string2 <- c("bom", "ruim")
+string3 <- c("melhor", "pior")
+
+str_c(string1, " é a prova de que não existe nada tão ", string2,
+      " que não pode ficar ", string3, ".")
+## Error in str_c(string1, " é a prova de que não existe nada tão ", string2, : could not find function "str_c"
+
+# Pode ser usada para "criar código". 
+
+variaveis <- names(mtcars)
+variaveis
+##  [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "vs"   "am"   "gear"
+## [11] "carb"
+
+variaveis_explicativas <- str_c(variaveis[-1], collapse = " + ")
+## Error in str_c(variaveis[-1], collapse = " + "): could not find function "str_c"
+
+formula <- str_c(variaveis[1], " ~ ", variaveis_explicativas)
+## Error in str_c(variaveis[1], " ~ ", variaveis_explicativas): could not find function "str_c"
+formula
+## function (x, ...) 
+## UseMethod("formula")
+## <bytecode: 0x4272c48>
+## <environment: namespace:stats>
+as.formula
+## function (object, env = parent.frame()) 
+## {
+##     if (inherits(object, "formula")) 
+##         object
+##     else {
+##         rval <- formula(object, env = baseenv())
+##         if (identical(environment(rval), baseenv()) || !missing(env)) 
+##             environment(rval) <- env
+##         rval
+##     }
+## }
+## <bytecode: 0x4144048>
+## <environment: namespace:stats>
+
+# Modeloo linear (Off-topic)
+fit <- lm(formula, data = mtcars)
+## Error: object of type 'closure' is not subsettable
+summary(fit)
+## Error in summary(fit): object 'fit' not found
 ```
 
 Essas são as funções mais simples do pacote `stringr` e não exigem nenhum conhecimento de **expressões regulares**. Note que nenhuma delas possui o parâmetro `pattern`. Você verá como especificar esse parâmetro nas próximas seções.
-
 --------------------------------------------------------------------------------
 
 
