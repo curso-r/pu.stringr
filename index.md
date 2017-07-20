@@ -52,9 +52,12 @@ Antes de mais nada, instale e carregue o pacote `stringr`.
 
 ```r
 install.packages("stringr")
-library(stringr)
 ```
 
+
+```r
+library(stringr)
+```
 
 ### str_length
 
@@ -63,10 +66,10 @@ A função mais simples do `stringr()` é a função `str_length()`. Esta funç�
 
 ```r
 str_length("São Paulo")
-## Error in str_length("São Paulo"): could not find function "str_length"
+## [1] 9
 str_length(c("São Paulo", "Rio de Janeiro", 
              "Rio Grande do Norte", "Acre"))
-## Error in str_length(c("São Paulo", "Rio de Janeiro", "Rio Grande do Norte", : could not find function "str_length"
+## [1]  9 14 19  4
 ```
 
 Note que `str_length()` é diferente de `length()`. O primeiro retorna o número de caracteres e o segundo retorna o comprimento do objeto. Isso fica mais claro no seguinte exemplo:
@@ -77,7 +80,7 @@ s <- c("São Paulo", "Rio de Janeiro",
        "Rio Grande do Norte", "Acre")
 
 str_length(s)
-## Error in str_length(s): could not find function "str_length"
+## [1]  9 14 19  4
 length(s)
 ## [1] 4
 ```
@@ -92,11 +95,11 @@ Essas funções servem para modificar a caixa das letras. Veja alguns exemplos:
 ```r
 s <- "Somos a curso-r"
 str_to_lower(s)
-## Error in str_to_lower(s): could not find function "str_to_lower"
+## [1] "somos a curso-r"
 str_to_upper(s)
-## Error in str_to_upper(s): could not find function "str_to_upper"
+## [1] "SOMOS A CURSO-R"
 str_to_title(s)
-## Error in str_to_title(s): could not find function "str_to_title"
+## [1] "Somos A Curso-R"
 ```
 
 ### str_trim
@@ -117,9 +120,9 @@ A função `str_trim()` ajuda removendo os espaços excedentes antes e depois da
 
 ```r
 string_aparada <- str_trim(s)
-## Error in str_trim(s): could not find function "str_trim"
 as.factor(string_aparada)
-## Error in is.factor(x): object 'string_aparada' not found
+## [1] M F F M F M
+## Levels: F M
 ```
 
 ### str_sub
@@ -136,7 +139,7 @@ Você pode querer apenas a parte final da string. Neste caso, pode usar a funç�
 
 ```r
 str_sub(s, start = 4) # pegar do quarto até o último caractere
-## Error in str_sub(s, start = 4): could not find function "str_sub"
+## [1] "Feminino"   "Masculino"  "Indefinido"
 ```
 
 Também é possível obter apenas os números.
@@ -144,7 +147,7 @@ Também é possível obter apenas os números.
 
 ```r
 str_sub(s, end = 2) # pegar apenas os dois primeiros caracteres
-## Error in str_sub(s, end = 2): could not find function "str_sub"
+## [1] "01" "02" "03"
 ```
 
 Em outros casos você precisa obter os últimos 2 caracteres.
@@ -153,9 +156,9 @@ Em outros casos você precisa obter os últimos 2 caracteres.
 ```r
 s <- c("Feminino-01", "Masculino-02", "Indefinido-03")
 str_sub(s, end = -4)
-## Error in str_sub(s, end = -4): could not find function "str_sub"
+## [1] "Feminino"   "Masculino"  "Indefinido"
 str_sub(s, start = -2)
-## Error in str_sub(s, start = -2): could not find function "str_sub"
+## [1] "01" "02" "03"
 ```
 
 É possível usar os argumentos `start` e `end` conjuntamente.
@@ -164,7 +167,7 @@ str_sub(s, start = -2)
 ```r
 s <- c("__SP__", "__MG__", "__RJ__")
 str_sub(s, 3, 4)
-## Error in str_sub(s, 3, 4): could not find function "str_sub"
+## [1] "SP" "MG" "RJ"
 ```
 
 ### str_c
@@ -178,7 +181,7 @@ string1 <- "O valor p é: "
 string2 <- 0.03
 
 str_c(string1, string2)     # Números serão transformados em caracteres.
-## Error in str_c(string1, string2): could not find function "str_c"
+## [1] "O valor p é: 0.03"
 
 
 # Pode misturar objetos com strings definidas diretamente na função.
@@ -189,7 +192,7 @@ string3 <- "melhor"
 
 str_c(string1, " é a prova de que não existe nada tão ", string2,
       " que não pode ficar ", string3, ".")
-## Error in str_c(string1, " é a prova de que não existe nada tão ", string2, : could not find function "str_c"
+## [1] "Brigadeiro é a prova de que não existe nada tão bom que não pode ficar melhor."
 
 # A função é vetorizada.
 
@@ -199,7 +202,8 @@ string3 <- c("melhor", "pior")
 
 str_c(string1, " é a prova de que não existe nada tão ", string2,
       " que não pode ficar ", string3, ".")
-## Error in str_c(string1, " é a prova de que não existe nada tão ", string2, : could not find function "str_c"
+## [1] "Brigadeiro é a prova de que não existe nada tão bom que não pode ficar melhor."          
+## [2] "A política brasileira é a prova de que não existe nada tão ruim que não pode ficar pior."
 
 # Pode ser usada para "criar código". 
 
@@ -209,15 +213,10 @@ variaveis
 ## [11] "carb"
 
 variaveis_explicativas <- str_c(variaveis[-1], collapse = " + ")
-## Error in str_c(variaveis[-1], collapse = " + "): could not find function "str_c"
 
 formula <- str_c(variaveis[1], " ~ ", variaveis_explicativas)
-## Error in str_c(variaveis[1], " ~ ", variaveis_explicativas): could not find function "str_c"
 formula
-## function (x, ...) 
-## UseMethod("formula")
-## <bytecode: 0x3d970b0>
-## <environment: namespace:stats>
+## [1] "mpg ~ cyl + disp + hp + drat + wt + qsec + vs + am + gear + carb"
 as.formula
 ## function (object, env = parent.frame()) 
 ## {
@@ -230,14 +229,39 @@ as.formula
 ##         rval
 ##     }
 ## }
-## <bytecode: 0x3c65920>
+## <bytecode: 0x2c5ed20>
 ## <environment: namespace:stats>
 
 # Modeloo linear (Off-topic)
 fit <- lm(formula, data = mtcars)
-## Error: object of type 'closure' is not subsettable
 summary(fit)
-## Error in summary(fit): object 'fit' not found
+## 
+## Call:
+## lm(formula = formula, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.4506 -1.6044 -0.1196  1.2193  4.6271 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)  
+## (Intercept) 12.30337   18.71788   0.657   0.5181  
+## cyl         -0.11144    1.04502  -0.107   0.9161  
+## disp         0.01334    0.01786   0.747   0.4635  
+## hp          -0.02148    0.02177  -0.987   0.3350  
+## drat         0.78711    1.63537   0.481   0.6353  
+## wt          -3.71530    1.89441  -1.961   0.0633 .
+## qsec         0.82104    0.73084   1.123   0.2739  
+## vs           0.31776    2.10451   0.151   0.8814  
+## am           2.52023    2.05665   1.225   0.2340  
+## gear         0.65541    1.49326   0.439   0.6652  
+## carb        -0.19942    0.82875  -0.241   0.8122  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.65 on 21 degrees of freedom
+## Multiple R-squared:  0.869,	Adjusted R-squared:  0.8066 
+## F-statistic: 13.93 on 10 and 21 DF,  p-value: 3.793e-07
 ```
 
 Essas são as funções mais simples do pacote `stringr` e não exigem nenhum conhecimento de **expressões regulares**. Note que nenhuma delas possui o parâmetro `pattern`. Você verá como especificar esse parâmetro nas próximas seções.
@@ -322,6 +346,8 @@ A lista de possibilidades com expressões regulares é extensa.
 Um bom lugar para testar o funcionamento das regex é o [regex101](https://regex101.com/).
 
 --------------------------------------------------------------------------------
+
+
 
 
 
@@ -602,16 +628,6 @@ Crie uma regra para identificar se o texto refere-se a um feedback positivo ou n
 
 
 
-```
-## 
-## Attaching package: 'magrittr'
-## The following object is masked from 'package:tidyr':
-## 
-##     extract
-## The following object is masked from 'package:purrr':
-## 
-##     set_names
-```
 
 
 ## Respostas
