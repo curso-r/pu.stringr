@@ -164,4 +164,6 @@ summary(fit)
 ```
 
 Essas são as funções mais simples do pacote `stringr` e não exigem nenhum conhecimento de **expressões regulares**. Note que nenhuma delas possui o parâmetro `pattern`. Você verá como especificar esse parâmetro nas próximas seções.
+
+
 --------------------------------------------------------------------------------
