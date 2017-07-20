@@ -11,6 +11,10 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+library(stringr)
+```
+
 ## Funções avançadas
 
 Agora que já vimos as funções básicas do `stringr` e aprendemos um pouco de regex, vamos às funções mais avançadas. Basicamente, essas funções buscarão `patterns` em um vetor de *strings* e farão alguma coisa quando encontrá-lo.

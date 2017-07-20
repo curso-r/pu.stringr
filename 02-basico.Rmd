@@ -25,9 +25,11 @@ Antes de mais nada, instale e carregue o pacote `stringr`.
 
 ```{r, eval = FALSE}
 install.packages("stringr")
-library(stringr)
 ```
 
+```{r, message = FALSE, warning = FALSE}
+library(stringr)
+```
 
 ### str_length
 

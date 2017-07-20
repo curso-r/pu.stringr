@@ -1,5 +1,5 @@
 ---
-title: "Strings com o stringr"
+title: "Strings"
 author: "Daniel Falbel, William Amorim"
 ---
 
