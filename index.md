@@ -1,6 +1,6 @@
 ---
 title: Stringr
-date: '2017-07-19'
+date: '2017-07-20'
 ---
 
 
@@ -216,7 +216,7 @@ formula <- str_c(variaveis[1], " ~ ", variaveis_explicativas)
 formula
 ## function (x, ...) 
 ## UseMethod("formula")
-## <bytecode: 0x4272c48>
+## <bytecode: 0x3d970b0>
 ## <environment: namespace:stats>
 as.formula
 ## function (object, env = parent.frame()) 
@@ -230,7 +230,7 @@ as.formula
 ##         rval
 ##     }
 ## }
-## <bytecode: 0x4144048>
+## <bytecode: 0x3c65920>
 ## <environment: namespace:stats>
 
 # Modeloo linear (Off-topic)
@@ -241,6 +241,8 @@ summary(fit)
 ```
 
 Essas são as funções mais simples do pacote `stringr` e não exigem nenhum conhecimento de **expressões regulares**. Note que nenhuma delas possui o parâmetro `pattern`. Você verá como especificar esse parâmetro nas próximas seções.
+
+
 --------------------------------------------------------------------------------
 
 
