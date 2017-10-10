@@ -1,6 +1,6 @@
 ---
-title: Stringr
-date: '2017-07-20'
+title: 'Manipulando strings'
+date: '2017-10-10'
 ---
 
 
@@ -229,7 +229,7 @@ as.formula
 ##         rval
 ##     }
 ## }
-## <bytecode: 0x2c5ed20>
+## <bytecode: 0x37e95f0>
 ## <environment: namespace:stats>
 
 # Modeloo linear (Off-topic)
@@ -746,16 +746,14 @@ Transforme-a em "AC - Rio Branco" utilizando a função `str_split()`.
 ```r
 url <- c('/ac/rio-branco/xpto-xyz-1-0-1fds2396-5')
 
-UF <- url %>% 
-  str_sub(start = 2) %>% 
-  str_split("[/]", n = 2, simplify = TRUE) %>% 
-  .[1,1] %>% 
+UF <- url %>%
+  str_split("[/]", simplify = TRUE) %>% 
+  .[1,2] %>% 
   str_to_upper()
 
 cidade <- url %>% 
-  str_sub(start = 5) %>% 
-  str_split("[/]", n = 3, simplify = TRUE) %>% 
-  .[1,1] %>% 
+  str_split("[/]", simplify = TRUE) %>% 
+  .[1,3] %>% 
   str_replace("-", " ") %>% 
   str_to_title()
 
