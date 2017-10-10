@@ -1,3 +1,3 @@
 #!/bin/sh
 
-Rscript -e "puBuild::Rmd_bind(titulo = 'Stringr')"
+Rscript -e "puBuild::Rmd_bind(titulo = 'Manipulando strings')"
